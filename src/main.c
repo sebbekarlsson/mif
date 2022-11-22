@@ -8,6 +8,9 @@
 
 int main (int argc, char* argv[]) {
 
+  for (int i = 0; i < 100; i++) {
+    printf("%12.6f\n", mif_rand(i));
+  }
 
   return 0;
 }

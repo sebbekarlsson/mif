@@ -60,5 +60,8 @@ int mif_convolve(
 
 void mif_smooth_range(float peak, float* out, int len);
 
+int mif_crush(int seed);
+
+float mif_rand(float seed);
 
 #endif

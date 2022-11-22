@@ -134,3 +134,20 @@ void mif_smooth_range(float peak, float* out, int len) {
     out[MAX(0, i-1)] = v;
   }
 }
+
+int mif_crush(int seed) {
+  seed ^= seed << 13;
+  seed ^= seed >> 17;
+  seed ^= seed << 5;
+  return seed;
+}
+
+float mif_rand(float seed) {
+  seed += 1.0f;
+  int s = (int)ceilf(seed);
+  s = mif_crush(s);
+
+  float v = s / (MIF_GOLD * M_PI);
+
+  return mif_fract(v);
+}
