@@ -5,6 +5,14 @@
 
 #define MIF_SIGN(v) (v < 0.0f ? -1.0f : 1.0f)
 
+#ifndef MAX
+#define MAX(a, b) (a > b ? a : b)
+#endif
+
+#ifndef MIN
+#define MIN(a, b) (a < b ? a : b)
+#endif
+
 float mif_clamp(float v, float min, float max);
 
 float mif_lerp(float from, float to, float scale);
@@ -32,6 +40,9 @@ int mif_collatz(int v);
 void mif_smoothen(float *data, int data_len, float dry, float wet);
 
 void mif_convolve(float *invec, int len, float *kernel, int kernel_len, float dry, float wet);
+
+
+void mif_smooth_range(float peak, float* out, int len);
 
 
 #endif
