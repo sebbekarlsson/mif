@@ -1,0 +1,10 @@
+#ifndef MIF_CONSTANTS_H
+#define MIF_CONSTANTS_H
+
+#define MIF_GOLD 1.618034005
+#define MIF_PI 3.14159265359
+#define MIF_TAU (MIF_PI * 2.0f)
+
+#define MIF_TINY_FLOAT 0.000000001f
+
+#endif
