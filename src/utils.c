@@ -145,9 +145,8 @@ int mif_crush(int seed) {
 float mif_rand(float seed) {
   seed += 1.0f;
   int s = (int)ceilf(seed);
-  s = mif_crush(s);
+  float g = mif_crush(s);
 
-  float v = s / (MIF_GOLD * M_PI);
 
-  return mif_fract(v);
+  return mif_fract(cosf(seed) * sqrtf(g));
 }
