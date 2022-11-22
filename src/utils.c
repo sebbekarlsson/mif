@@ -56,3 +56,20 @@ bool mif_isodd(int v) {
 int mif_collatz(int v) {
   return mif_isodd(v) ? ((3 * v) + 1) : (v / 2);
 }
+
+void mif_convolve(float *invec, int len, float *kernel, int kernel_len, float dry, float wet) {
+  for (uint64_t i = kernel_len / 2; i < len - kernel_len / 2; ++i) {
+    for (uint64_t j = 0; j < kernel_len + 1; j++) {
+      invec[i - kernel_len / 2] =
+          ((invec[i - kernel_len / 2] * dry) +
+           (wet * (invec[i - kernel_len / 2 + j] * (kernel[j]))));
+    }
+  }
+}
+
+void mif_smoothen(float *data, int data_len, float dry, float wet) {
+  float kernel[15] = {0.1f, 0.2f, 0.3f, 0.4f, 0.5f, 0.5f, 0.6f, 1.0f,
+                      0.6f, 0.5f, 0.5f, 0.4f, 0.3f, 0.2f, 0.1f};
+
+  mif_convolve(data, data_len, kernel, 15, dry, wet);
+}

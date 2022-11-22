@@ -1,6 +1,7 @@
 #ifndef MIF_UTILS_H
 #define MIF_UTILS_H
 #include <stdbool.h>
+#include <stdint.h>
 
 #define MIF_SIGN(v) (v < 0.0f ? -1.0f : 1.0f)
 
@@ -27,5 +28,10 @@ void mif_decant(int c, int* x, int* y);
 bool mif_isodd(int v);
 
 int mif_collatz(int v);
+
+void mif_smoothen(float *data, int data_len, float dry, float wet);
+
+void mif_convolve(float *invec, int len, float *kernel, int kernel_len, float dry, float wet);
+
 
 #endif
