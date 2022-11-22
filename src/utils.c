@@ -99,9 +99,14 @@ int mif_convolve(
 }
 
 
-int mif_smoothen(const float *data, int data_len, float* out, int64_t out_length) {
-  const int kernel_len = data_len / 3;
-  if (kernel_len <= 0) return 0;
+int mif_smoothen(
+  const float *data,
+  int data_len,
+  float* out,
+  int64_t out_length,
+  int quality
+) {
+  const int kernel_len = MAX(quality, 3);
 
   float kernel[kernel_len];
   mif_smooth_range(1.0f, kernel, kernel_len);
