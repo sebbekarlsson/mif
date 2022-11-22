@@ -64,4 +64,6 @@ int mif_crush(int seed);
 
 float mif_rand(float seed);
 
+float mif_safe(float v);
+
 #endif

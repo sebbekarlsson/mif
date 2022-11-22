@@ -150,3 +150,8 @@ float mif_rand(float seed) {
 
   return mif_fract(cosf(seed) * sqrtf(g));
 }
+
+float mif_safe(float v) {
+  if (!(isinf(v) || isnan(v))) return v;
+  return MIF_TINY_FLOAT;
+}
