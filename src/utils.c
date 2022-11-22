@@ -19,7 +19,7 @@ float mif_smoothstep(float edge0, float edge1, float value) {
 }
 
 float mif_fract(float v) {
-  return v - floorf(v);
+  return mif_safe(v - floorf(v));
 }
 
 float mif_cos_n(float v) {
@@ -31,7 +31,7 @@ float mif_sin_n(float v) {
 }
 
 float mif_inv(float v) {
-  return (1.0f / fmaxf(fabsf(v), MIF_TINY_FLOAT)) * MIF_SIGN(v);
+  return mif_safe((1.0f / fmaxf(fabsf(v), MIF_TINY_FLOAT)) * MIF_SIGN(v));
 }
 
 float mif_gold_ratio(float x, float y) {
@@ -39,7 +39,7 @@ float mif_gold_ratio(float x, float y) {
   float r = (x + y) / x;
   float d = fabs(MIF_GOLD - r);
 
-  return 1.0f - d;
+  return mif_safe(1.0f - d);
 }
 
 int mif_cantor(int k1, int k2) {
@@ -148,7 +148,7 @@ float mif_rand(float seed) {
   float g = mif_crush(s);
 
 
-  return mif_fract(cosf(seed) * sqrtf(g));
+  return mif_safe(mif_fract(cosf(seed) * mif_safe(sqrtf(g))));
 }
 
 float mif_safe(float v) {
