@@ -37,9 +37,19 @@ bool mif_isodd(int v);
 
 int mif_collatz(int v);
 
-void mif_smoothen(float *data, int data_len, float dry, float wet);
+int mif_smoothen(const float *data, int data_len, float* out, int64_t out_length);
 
-void mif_convolve(float *invec, int len, float *kernel, int kernel_len, float dry, float wet);
+
+int mif_convolve(
+  const float* signal,
+  int64_t signal_length,
+
+  const float* kernel,
+  int64_t kernel_length,
+
+  float* result,
+  int64_t result_length
+);
 
 
 void mif_smooth_range(float peak, float* out, int len);

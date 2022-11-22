@@ -1,7 +1,9 @@
 #include <mif/utils.h>
 #include <mif/constants.h>
+#include <mif/macros.h>
 #include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 float mif_clamp(float v, float min, float max) {
   return fmaxf(min, fminf(max, v));
@@ -58,24 +60,53 @@ int mif_collatz(int v) {
   return mif_isodd(v) ? ((3 * v) + 1) : (v / 2);
 }
 
-void mif_convolve(float *invec, int len, float *kernel, int kernel_len, float dry, float wet) {
-  for (uint64_t i = kernel_len / 2; i < MAX(0, len - kernel_len / 2); ++i) {
-    for (uint64_t j = 0; j < kernel_len + 1; j++) {
-      invec[MAX(0, i - kernel_len / 2)] =
-          ((invec[MAX(0, i - kernel_len / 2)] * dry) +
-           (wet * (invec[MAX(0, i - kernel_len / 2 + j)] * (kernel[j]))));
+
+int mif_convolve(
+  const float* signal,
+  int64_t signal_length,
+
+  const float* kernel,
+  int64_t kernel_length,
+
+  float* result,
+  int64_t result_length
+){
+
+  int64_t wanted_length = signal_length + kernel_length - 1;
+
+  if (result_length < wanted_length) {
+    MIF_WARNING(stderr, "result_length must be at least %ld\n", wanted_length);
+    return 0;
+  }
+
+  size_t n = 0;
+  for (n = 0; n < signal_length + kernel_length - 1; n++)
+  {
+    size_t kmin, kmax, k;
+
+    result[n] = 0;
+
+    kmin = (n >= kernel_length - 1) ? n - (kernel_length - 1) : 0;
+    kmax = (n < signal_length - 1) ? n : signal_length - 1;
+
+    for (k = kmin; k <= kmax; k++)
+    {
+      result[n] += signal[k] * kernel[n - k];
     }
   }
+
+  return 1;
 }
 
-void mif_smoothen(float *data, int data_len, float dry, float wet) {
+
+int mif_smoothen(const float *data, int data_len, float* out, int64_t out_length) {
   const int kernel_len = data_len / 3;
-  if (kernel_len <= 0) return;
+  if (kernel_len <= 0) return 0;
 
   float kernel[kernel_len];
   mif_smooth_range(1.0f, kernel, kernel_len);
 
-  mif_convolve(data, data_len, kernel, kernel_len, dry, wet);
+  return mif_convolve(data, data_len, kernel, kernel_len, out, out_length);
 }
 
 void mif_smooth_range(float peak, float* out, int len) {
