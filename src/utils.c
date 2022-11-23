@@ -35,10 +35,10 @@ float mif_inv(float v) {
 }
 
 
+
 float mif_gold_ratio_est(float x, float y) {
   if (fabsf(x) <= MIF_TINY_FLOAT) return 0.0f;
   float r = (x + y) / x;
-
 
   if (r < MIF_GOLD / 2.0f) return 0.0f;
   if (r > MIF_GOLD * 2.0f) return 0.0f;
@@ -47,6 +47,10 @@ float mif_gold_ratio_est(float x, float y) {
 
   return mif_smoothstep(0.0f, 1.0f, fmaxf(0.0f, 1.0f - dist));
 
+}
+
+float mif_gold_ratio_est_both(float x, float y) {
+  return fmaxf(mif_gold_ratio_est(x, y), mif_gold_ratio_est(y, x));
 }
 
 int mif_cantor(int k1, int k2) {
