@@ -36,10 +36,10 @@ float mif_inv(float v) {
 
 float mif_gold_ratio(float x, float y) {
   if (fabsf(x) <= MIF_TINY_FLOAT) return 0.0f;
-  float r = (x + y) / x;
-  float d = fabs(MIF_GOLD - r);
 
-  return mif_safe(1.0f - d);
+  float r = (x + y) / x;
+
+  return mif_safe(r / MIF_GOLD);
 }
 
 int mif_cantor(int k1, int k2) {

@@ -8,9 +8,9 @@
 
 int main (int argc, char* argv[]) {
 
-  for (int i = 0; i < 100; i++) {
-    printf("%12.6f\n", mif_rand(i));
-  }
+  float x = 89.0f;
+  float y = 55.0f;
+  printf("%12.6f\n", mif_gold_ratio(x, y));
 
   return 0;
 }
