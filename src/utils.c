@@ -34,12 +34,27 @@ float mif_inv(float v) {
   return mif_safe((1.0f / fmaxf(fabsf(v), MIF_TINY_FLOAT)) * MIF_SIGN(v));
 }
 
-float mif_gold_ratio(float x, float y) {
-  if (fabsf(x) <= MIF_TINY_FLOAT) return 0.0f;
 
+float mif_gold_ratio_factor(float x, float y) {
+  if (fabsf(x) <= MIF_TINY_FLOAT) return 0.0f;
   float r = (x + y) / x;
 
-  return mif_safe(r / MIF_GOLD);
+  return mif_clamp(mif_safe(r / MIF_GOLD), 0.0f, 1.0f);
+}
+
+float mif_gold_ratio(float x, float y) {
+  if (fabsf(x) <= MIF_TINY_FLOAT) return 0.0f;
+  float r = (x + y) / x;
+  float d = fabs(MIF_GOLD - r);
+
+  return mif_safe(1.0f - d);
+}
+
+float mif_gold_ratio_est(float x, float y) {
+  float a = mif_gold_ratio_factor(x, y);
+  float b = mif_clamp(mif_gold_ratio(x, y), 0.0f, 1.0f);
+
+  return (a + b) / 2.0f;
 }
 
 int mif_cantor(int k1, int k2) {

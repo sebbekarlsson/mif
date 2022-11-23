@@ -8,9 +8,9 @@
 
 int main (int argc, char* argv[]) {
 
-  float x = 89.0f;
-  float y = 55.0f;
-  printf("%12.6f\n", mif_gold_ratio(x, y));
+  float x = 89.1f;
+  float y = 55.3f;
+  printf("%12.6f, %12.6f, %12.6f\n", mif_gold_ratio_factor(x, y), mif_gold_ratio(x, y), mif_gold_ratio_est(x, y));
 
   return 0;
 }

@@ -27,7 +27,12 @@ float mif_sin_n(float v);
 
 float mif_inv(float v);
 
+
+float mif_gold_ratio_factor(float x, float y);
+
 float mif_gold_ratio(float x, float y);
+
+float mif_gold_ratio_est(float x, float y);
 
 int mif_cantor(int x, int y);
 
