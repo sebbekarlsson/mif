@@ -48,9 +48,9 @@ static void _fft(cplx buf[], cplx out[], int n, int step) {
     _fft(out + step, buf + step, n, step * 2);
 
     for (int i = 0; i < n; i += 2 * step) {
-      cplx t = cexp(-I * M_PI * i / n) * out[i + step];
+      cplx t = cexp(-I * M_PI * i / n) * out[(i + step) % n];
       buf[i / 2] = out[i] + t;
-      buf[(i + n) / 2] = out[i] - t;
+      buf[((i + n) / 2)%n] = out[i] - t;
     }
   }
 }
