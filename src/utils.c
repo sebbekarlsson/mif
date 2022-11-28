@@ -166,3 +166,69 @@ float mif_safe(float v) {
   if (!(isinf(v) || isnan(v))) return v;
   return MIF_TINY_FLOAT;
 }
+
+
+float mif_avg(float* values, int64_t length) {
+  if (!values || length <= 0) return 0.0f;
+
+
+  float avg = 0.0f;
+
+  for (int64_t i = 0; i < length; i++) {
+    avg += values[i];
+  }
+
+  avg /= (float)length;
+
+  return avg;
+}
+
+float mif_min(float* values, int64_t length) {
+  if (!values || length <= 0) return 0.0f;
+
+
+  float min = INFINITY;
+
+  for (int64_t i = 0; i < length; i++) {
+    min = fminf(min, values[i]);
+  }
+
+  return min;
+}
+
+float mif_max(float* values, int64_t length) {
+  if (!values || length <= 0) return 0.0f;
+
+  float max = -INFINITY;
+
+  for (int64_t i = 0; i < length; i++) {
+    max = fmaxf(max, values[i]);
+  }
+
+  return max;
+}
+
+int64_t mif_count_peaks(float* values, int64_t length) {
+  if (!values || length <= 0) return 0;
+
+
+  float target = 1.0f;
+  float tolerance = 0.00001f;
+  int64_t nr_peaks = 0;
+
+  int last_sign = 42;
+
+  for (int64_t i = 0; i < length; i++) {
+    float s = values[i];
+
+    int sign = s < 0.0 ? -1 : 1;
+
+    if (ceilf(s) == 1 && sign != last_sign) {
+      nr_peaks += sign;
+    }
+
+    last_sign = sign;
+  }
+
+  return nr_peaks;
+}

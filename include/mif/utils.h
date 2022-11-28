@@ -68,4 +68,14 @@ float mif_rand(float seed);
 
 float mif_safe(float v);
 
+
+float mif_avg(float* values, int64_t length);
+
+float mif_min(float* values, int64_t length);
+
+float mif_max(float* values, int64_t length);
+
+int64_t mif_count_peaks(float* values, int64_t length);
+
+
 #endif

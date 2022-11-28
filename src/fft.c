@@ -1,5 +1,6 @@
 #include <mif/fft.h>
 #include <mif/constants.h>
+#include <mif/utils.h>
 #include <mif/types.h>
 #include <math.h>
 #include <stdint.h>
@@ -54,13 +55,37 @@ static void _fft(cplx buf[], cplx out[], int n, int step) {
   }
 }
 
-void mif_fft(float buf[], int n) {
+void mif_fft(float* buf_in , float* buf_out, int n) {
   cplx out[n];
-  for (int i = 0; i < n; i++) out[i] = buf[i];
+  for (int i = 0; i < n; i++) out[i] = buf_in[i];
 
   _fft(out, out, n, 1);
 
   for (uint32_t i = 0; i < n; i++) {
-    buf[i] = creal(out[i]);
+    buf_out[i] = creal(out[i]);
   }
+}
+
+int mif_fft_apply_window(float* fft, float* out, int64_t length, MIFFFTWindowFunction window_func) {
+  if (!fft || !out || length <= 0 || !window_func) return 0;
+
+  for (int64_t i = 0; i < length; i++) {
+    fft[i] = fft[i] * window_func(i, length);
+  }
+
+  return 1;
+}
+
+float mif_fft_freq(float* fft, int64_t length, float sample_rate) {
+  if (!fft ||  length <= 0 || sample_rate <= 0.000001f) return 0.0f;
+  int64_t nr_peaks = mif_count_peaks(fft, length);
+
+  return sample_rate * (float)nr_peaks / (float)length;
+}
+
+float mif_fft_window_hanning(int64_t i, int64_t frame_len) {
+  return (0.5 * (1.0 - cosf(2.0 * M_PI * (float)i / (float)(frame_len - 1))));
+}
+float mif_fft_window_hamming(int64_t i, int64_t frame_len) {
+  return (0.54 - 0.46 * cosf(2.0 * M_PI * (float)i / (float)(frame_len - 1)));
 }
