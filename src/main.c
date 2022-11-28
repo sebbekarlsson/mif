@@ -13,8 +13,9 @@ int main (int argc, char* argv[]) {
   int64_t one_second = (int64_t)sample_rate;
 
   float* buff = (float*)calloc(one_second, sizeof(float));
+  cplx* comp = (cplx*)calloc(one_second, sizeof(cplx));
 
-  float freq = 440.0f;
+  float freq = 60.0f;
 
 
 
@@ -24,8 +25,7 @@ int main (int argc, char* argv[]) {
     buff[i] = sinf(freq * MIF_TAU * k);
   }
 
-
-  mif_fft(buff, buff, frame_size);
+  mif_fft_slow(buff, buff, comp,frame_size, 1);
   float peaks = (float)mif_count_peaks(buff, one_second);
   printf("%12.6f\n", peaks);
   printf("%12.6f\n", mif_fft_freq(buff, one_second, sample_rate));

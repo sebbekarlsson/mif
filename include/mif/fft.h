@@ -1,7 +1,15 @@
 #ifndef MIF_FFT_H
 #define MIF_FFT_H
 #include <stdint.h>
-void mif_fft(float* buf_in , float* buf_out, int n);
+#include <mif/types.h>
+
+
+
+void mif_fft(float* buf_in , float* buf_out, int n, int step);
+void mif_fft_cplx(cplx* buf, cplx* out, int n, int step);
+void mif_fft_slow(float* buf_in , float* buf_out, cplx* complex_out, int n, int step);
+
+
 void mif_ifftshift(float *data, int count);
 void mif_fftshift(float *data, int count);
 

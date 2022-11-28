@@ -48,22 +48,48 @@ static void _fft(cplx buf[], cplx out[], int n, int step) {
     _fft(out + step, buf + step, n, step * 2);
 
     for (int i = 0; i < n; i += 2 * step) {
-      cplx t = cexp(-I * M_PI * i / n) * out[(i + step) % n];
+      cplx t = cexp(-I * M_PI * (double)i / (double)n) * out[(i + step) % n];
       buf[i / 2] = out[i] + t;
       buf[((i + n) / 2)%n] = out[i] - t;
     }
   }
 }
 
-void mif_fft(float* buf_in , float* buf_out, int n) {
-  cplx out[n];
-  for (int i = 0; i < n; i++) out[i] = buf_in[i];
+void mif_fft_slow(float* buf_in , float* buf_out, cplx* complex_out, int n, int step) {
+  for (int i = 0; i < n; i++) complex_out[i] = buf_in[i];
 
-  _fft(out, out, n, 1);
+  _fft(complex_out, complex_out, n, 1);
 
   for (uint32_t i = 0; i < n; i++) {
-    buf_out[i] = creal(out[i]);
+    buf_out[i] = crealf(complex_out[i]);
   }
+}
+void mif_fft_cplx(cplx* buf, cplx* out, int n, int step) {
+  if (step < n) {
+    mif_fft_cplx(out, buf, n, step * 2);
+    mif_fft_cplx(out + step, buf + step, n, step * 2);
+
+    for (int i = 0; i < n; i += 2 * step) {
+      cplx t = cexp(-I * M_PI * (double)i / (double)n) * out[(i + step) % n];
+      buf[i / 2] = out[i] + t;
+      buf[((i + n) / 2)%n] = out[i] - t;
+    }
+  }
+}
+
+void mif_fft(float* buf, float* out, int n, int step) {
+  mif_fft_cplx((cplx*)buf, (cplx*)out, n, step);
+  /*
+  if (step < n) {
+    mif_fft(out, buf, n, step * 2);
+    mif_fft(out + step, buf + step, n, step * 2);
+
+    for (int i = 0; i < n; i += 2 * step) {
+      cplx t = cexp(-I * M_PI * i / n) * out[(i + step) % n];
+      buf[i / 2] = out[i] + t;
+      buf[((i + n) / 2)%n] = out[i] - t;
+    }
+  }*/
 }
 
 int mif_fft_apply_window(float* fft, float* out, int64_t length, MIFFFTWindowFunction window_func) {
