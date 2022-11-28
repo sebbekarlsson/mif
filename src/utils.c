@@ -183,26 +183,35 @@ float mif_avg(float* values, int64_t length) {
   return avg;
 }
 
-float mif_min(float* values, int64_t length) {
-  if (!values || length <= 0) return 0.0f;
+float mif_min(float* values, int64_t length, int64_t* index_out) {
+  if (!values || length <= 0 || !index_out) return 0.0f;
 
 
   float min = INFINITY;
 
   for (int64_t i = 0; i < length; i++) {
-    min = fminf(min, values[i]);
+    float v = values[i];
+    if (v < min) {
+      *index_out = i;
+      min = v;
+    }
   }
 
   return min;
 }
 
-float mif_max(float* values, int64_t length) {
-  if (!values || length <= 0) return 0.0f;
+float mif_max(float* values, int64_t length, int64_t* index_out) {
+  if (!values || length <= 0 || !index_out) return 0.0f;
 
   float max = -INFINITY;
 
   for (int64_t i = 0; i < length; i++) {
-    max = fmaxf(max, values[i]);
+    float v = values[i];
+
+    if (v > max) {
+      *index_out = i;
+      max = v;
+    }
   }
 
   return max;

@@ -71,9 +71,9 @@ float mif_safe(float v);
 
 float mif_avg(float* values, int64_t length);
 
-float mif_min(float* values, int64_t length);
+float mif_min(float* values, int64_t length, int64_t* index_out);
 
-float mif_max(float* values, int64_t length);
+float mif_max(float* values, int64_t length, int64_t* index_out);
 
 int64_t mif_count_peaks(float* values, int64_t length);
 

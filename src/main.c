@@ -26,11 +26,18 @@ int main (int argc, char* argv[]) {
   }
 
   mif_fft_slow(buff, buff, comp,frame_size, 1);
+  mif_fft_apply_window(buff, buff, 512, mif_fft_window_hamming);
   float peaks = (float)mif_count_peaks(buff, one_second);
   printf("%12.6f\n", peaks);
   printf("%12.6f\n", mif_fft_freq(buff, one_second, sample_rate));
 
-  //mif_fft_apply_window(buff, buff, 512, mif_fft_window_hamming);
+
+
+  int64_t index = 0;
+  printf("%12.6f\n", mif_min(buff, 512, &index));
+
+  printf("%ld\n", index);
+
 
  // printf("max: %12.6f\n", mif_max(buff, 512));
 
