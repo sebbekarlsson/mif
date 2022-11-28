@@ -15,7 +15,7 @@ int main (int argc, char* argv[]) {
   float* buff = (float*)calloc(one_second, sizeof(float));
   cplx* comp = (cplx*)calloc(one_second, sizeof(cplx));
 
-  float freq = 60.0f;
+  float freq = 440.0f;
 
 
 

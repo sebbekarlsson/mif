@@ -42,23 +42,46 @@ void mif_ifftshift(float *data, int count) {
   }
 }
 
-static void _fft(cplx buf[], cplx out[], int n, int step) {
-  if (step < n) {
-    _fft(out, buf, n, step * 2);
-    _fft(out + step, buf + step, n, step * 2);
+static void _fft_populate(cplx buf[], cplx out[], int n, int step) {
+  for (int i = 0; i < n; i += 2 * step) {
+    cplx t = cexp(-I * M_PI * (double)i / (double)n) * out[(i + step) % n];
+    buf[i / 2] = out[i] + t;
+    buf[((i + n) / 2)%n] = out[i] - t;
+  }
+}
 
-    for (int i = 0; i < n; i += 2 * step) {
-      cplx t = cexp(-I * M_PI * (double)i / (double)n) * out[(i + step) % n];
-      buf[i / 2] = out[i] + t;
-      buf[((i + n) / 2)%n] = out[i] - t;
-    }
+static void _fft_old(cplx buf[], cplx out[], int n, int step) {
+  if (step < n) {
+    _fft_old(out, buf, n, step * 2);
+    _fft_old(out + step, buf + step, n, step * 2);
+
+    _fft_populate(buf, out, n ,step);
+
+  }
+}
+
+static void _fft(cplx buf[], cplx out[], int n, int step) {
+  int count = 0;
+  while (step < n) {
+   // _fft(out, buf, n, step * 2);
+    //_fft(out + step, buf + step, n, step * 2);
+
+
+    bool alt = count % 2 == 0 && count > 0;
+    int shift = alt ? step : 0;//count % 2 == 0 ? step : 0;
+
+    step+=(int)alt*2;
+    _fft_populate(buf + shift, out + shift, n ,step);
+
+
+    count++;
   }
 }
 
 void mif_fft_slow(float* buf_in , float* buf_out, cplx* complex_out, int n, int step) {
   for (int i = 0; i < n; i++) complex_out[i] = buf_in[i];
 
-  _fft(complex_out, complex_out, n, 1);
+  _fft(complex_out, complex_out, n, step);
 
   for (uint32_t i = 0; i < n; i++) {
     buf_out[i] = crealf(complex_out[i]);
