@@ -1,6 +1,7 @@
 #include <mif/utils.h>
 #include <mif/constants.h>
 #include <mif/macros.h>
+#include <mif/hash.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -162,6 +163,37 @@ float mif_rand(float seed) {
   return mif_safe(mif_fract(cosf(seed) * mif_safe(sqrtf(g))));
 }
 
+float mif_random_float(float min, float max, float seed) {
+  float* buff = (float*)mif_hash_data;
+  int64_t buff_len = mif_hash_data_len / sizeof(float);
+  float max_v = mif_max_abs(buff, buff_len, 0);
+
+  int crushed = MIF_ABS(mif_crush((int)((seed * 0.1f) / 2) + (MIF_PI*6)));
+  crushed = (int)((float)crushed * max_v);
+  int idx0 = crushed % buff_len;
+
+  float a = fabsf(buff[idx0]);
+
+  int idx1 = (int)(a * (crushed / 2)) % buff_len;
+
+  float b = fabsf(buff[idx1]);
+
+  int idx2 = (int)(a * b * (idx0)) % buff_len;
+
+  float c = fabsf(buff[idx2]);
+
+
+  float d = ((a + b + c) / 3.0f) / fmaxf(max_v, 0.00001f);
+  float e = mif_fract(cosf((float)(crushed) * M_PI));
+  float f = mif_fract(sinf(seed / M_PI) / M_PI);
+
+
+
+  float scale = mif_fract(atan2f(atan2f(d, e), f));//rand() / (float) RAND_MAX; /* [0, 1.0] */
+  return mif_clamp(min + scale * ( max - min ), min, max);
+
+}
+
 float mif_safe(float v) {
   if (!(isinf(v) || isnan(v))) return v;
   return MIF_TINY_FLOAT;
@@ -184,7 +216,7 @@ float mif_avg(float* values, int64_t length) {
 }
 
 float mif_min(float* values, int64_t length, int64_t* index_out) {
-  if (!values || length <= 0 || !index_out) return 0.0f;
+  if (!values || length <= 0) return 0.0f;
 
 
   float min = INFINITY;
@@ -192,7 +224,9 @@ float mif_min(float* values, int64_t length, int64_t* index_out) {
   for (int64_t i = 0; i < length; i++) {
     float v = values[i];
     if (v < min) {
-      *index_out = i;
+      if (index_out != 0) {
+        *index_out = i;
+      }
       min = v;
     }
   }
@@ -201,7 +235,7 @@ float mif_min(float* values, int64_t length, int64_t* index_out) {
 }
 
 float mif_max(float* values, int64_t length, int64_t* index_out) {
-  if (!values || length <= 0 || !index_out) return 0.0f;
+  if (!values || length <= 0) return 0.0f;
 
   float max = -INFINITY;
 
@@ -209,7 +243,28 @@ float mif_max(float* values, int64_t length, int64_t* index_out) {
     float v = values[i];
 
     if (v > max) {
-      *index_out = i;
+      if (index_out != 0) {
+        *index_out = i;
+      }
+      max = v;
+    }
+  }
+
+  return max;
+}
+
+float mif_max_abs(float* values, int64_t length, int64_t* index_out) {
+  if (!values || length <= 0) return 0.0f;
+
+  float max = -INFINITY;
+
+  for (int64_t i = 0; i < length; i++) {
+    float v = fabsf(values[i]);
+
+    if (v > max) {
+      if (index_out != 0) {
+        *index_out = i;
+      }
       max = v;
     }
   }

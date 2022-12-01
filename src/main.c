@@ -4,9 +4,12 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 
 int main (int argc, char* argv[]) {
+
+  return 0;
 
   float sample_rate = 44100.0f;
   int frame_size = 512;
