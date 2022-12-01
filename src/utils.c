@@ -168,16 +168,16 @@ float mif_get_hash(int64_t index) {
   float* buff1 = (float*)mif_hash_data;
   int64_t buff1_len = mif_hash_data_len / sizeof(float);
 
-  float a = buff1[index % buff1_len];
+  return buff1[index % buff1_len];
+}
 
+float mif_get_hash2(int64_t index) {
+  index = MIF_ABS(index);
   float* buff2 = (float*)mif_hash_data2;
   int64_t buff2_len = mif_hash_data2_len / sizeof(float);
 
-  float b = buff2[index % buff2_len];
-
-  return (a + b) / 2.0f;
+  return buff2[index % buff2_len];
 }
-
 
 float mif_random_float(float min, float max, float seed) {
   float* buff = (float*)mif_hash_data;

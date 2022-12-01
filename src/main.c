@@ -10,7 +10,7 @@
 int main (int argc, char* argv[]) {
 
   for (int i = 0; i < 50000; i++) {
-    printf("%12.6f\n", mif_random_float(0.0f, 1.0f, (i+1)*2));
+    printf("%12.6f\n", mif_get_hash2(i));
   }
 
   return 0;

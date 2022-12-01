@@ -85,6 +85,7 @@ float mif_max_abs(float* values, int64_t length, int64_t* index_out);
 int64_t mif_count_peaks(float* values, int64_t length);
 
 float mif_get_hash(int64_t index);
+float mif_get_hash2(int64_t index);
 
 
 #endif
