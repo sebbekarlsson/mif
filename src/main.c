@@ -9,6 +9,10 @@
 
 int main (int argc, char* argv[]) {
 
+  for (int i = 0; i < 50000; i++) {
+    printf("%12.6f\n", mif_random_float(0.0f, 1.0f, (i+1)*2));
+  }
+
   return 0;
 
   float sample_rate = 44100.0f;

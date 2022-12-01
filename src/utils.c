@@ -163,6 +163,22 @@ float mif_rand(float seed) {
   return mif_safe(mif_fract(cosf(seed) * mif_safe(sqrtf(g))));
 }
 
+float mif_get_hash(int64_t index) {
+  index = MIF_ABS(index);
+  float* buff1 = (float*)mif_hash_data;
+  int64_t buff1_len = mif_hash_data_len / sizeof(float);
+
+  float a = buff1[index % buff1_len];
+
+  float* buff2 = (float*)mif_hash_data2;
+  int64_t buff2_len = mif_hash_data2_len / sizeof(float);
+
+  float b = buff2[index % buff2_len];
+
+  return (a + b) / 2.0f;
+}
+
+
 float mif_random_float(float min, float max, float seed) {
   float* buff = (float*)mif_hash_data;
   int64_t buff_len = mif_hash_data_len / sizeof(float);
