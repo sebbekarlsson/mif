@@ -231,6 +231,19 @@ float mif_avg(float* values, int64_t length) {
   return avg;
 }
 
+float mif_avg_abs(float* values, int64_t length) {
+  if (!values || length <= 0) return 0.0f;
+  float avg = 0.0f;
+
+  for (int64_t i = 0; i < length; i++) {
+    avg += fabsf(values[i]);
+  }
+
+  avg /= (float)length;
+
+  return avg;
+}
+
 float mif_min(float* values, int64_t length, int64_t* index_out) {
   if (!values || length <= 0) return 0.0f;
 
