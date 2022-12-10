@@ -305,7 +305,9 @@ int64_t mif_count_peaks(float* values, int64_t length) {
   if (!values || length <= 0) return 0;
 
 
-  float target = 1.0f;
+  float max_v = mif_max_abs(values, length, 0);
+
+  float target = max_v;
   float tolerance = 0.00001f;
   int64_t nr_peaks = 0;
 

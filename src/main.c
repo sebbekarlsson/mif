@@ -9,11 +9,6 @@
 
 int main (int argc, char* argv[]) {
 
-  for (int i = 0; i < 50000; i++) {
-    printf("%12.6f\n", mif_get_hash2(i));
-  }
-
-  return 0;
 
   float sample_rate = 44100.0f;
   int frame_size = 512;
@@ -35,7 +30,7 @@ int main (int argc, char* argv[]) {
   mif_fft_slow(buff, buff, comp,frame_size, 1);
   mif_fft_apply_window(buff, buff, 512, mif_fft_window_hamming);
   float peaks = (float)mif_count_peaks(buff, one_second);
-  printf("%12.6f\n", peaks);
+  printf("peaks: %12.6f\n", peaks);
   printf("%12.6f\n", mif_fft_freq(buff, one_second, sample_rate));
 
 
