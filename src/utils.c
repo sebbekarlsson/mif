@@ -2,6 +2,7 @@
 #include <mif/constants.h>
 #include <mif/macros.h>
 #include <mif/hash.h>
+#include <string.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -304,7 +305,6 @@ float mif_max_abs(float* values, int64_t length, int64_t* index_out) {
 int64_t mif_count_peaks(float* values, int64_t length) {
   if (!values || length <= 0) return 0;
 
-
   float max_v = mif_max_abs(values, length, 0);
 
   float target = max_v;
@@ -326,4 +326,18 @@ int64_t mif_count_peaks(float* values, int64_t length) {
   }
 
   return nr_peaks;
+}
+
+static inline int mif_lev_(const char* a, const char* b, int la, int lb) {
+  if (la <= 0) return lb;
+  if (lb <= 0) return la;
+  if (a[la-1] == b[lb-1]) return mif_lev_(a, b, la-1, lb-1);
+  int d1 = mif_lev_(a, b, la-1, lb) + 1;
+  int d2 = mif_lev_(a, b, la, lb-1) + 1;
+  int d3 = mif_lev_(a, b, la-1, lb-1) + 1;
+  return MIN(d1, MIN(d2, d3));
+}
+
+int mif_lev(const char* a, const char* b) {
+  return mif_lev_(a, b, strlen(a), strlen(b));
 }
