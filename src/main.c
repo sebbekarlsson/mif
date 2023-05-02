@@ -8,9 +8,13 @@
 
 
 int main (int argc, char* argv[]) {
-  int dist = mif_lev("hello", "hello");
+  //int dist = mif_lev("hello", "hello");
 
-  printf("dist: %d\n", dist);
+  //printf("dist: %d\n", dist);
 
+  for (int i = 0; i < 100; i++) {
+    float f = mif_random_float(0.0f, 10.0f, (float)i);
+    printf("%f\n", f);
+  }
   return 0;
 }

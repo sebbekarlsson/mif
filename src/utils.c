@@ -180,42 +180,31 @@ float mif_get_hash2(int64_t index) {
   return buff2[index % buff2_len];
 }
 
+uint32_t mif_float_bits_to_uint(float f) {
+  union MifFloatUint32 { float f; uint32_t i; };
+  union MifFloatUint32 converted;
+  converted.f = f;
+  return converted.i;
+}
+
 float mif_random_float(float min, float max, float seed) {
-  float* buff = (float*)mif_hash_data;
-  int64_t buff_len = mif_hash_data_len / sizeof(float);
-  float max_v = mif_max_abs(buff, buff_len, 0);
-
-  int crushed = MIF_ABS(mif_crush((int)((seed * 0.1f) / 2) + (MIF_PI*6)));
-  crushed = (int)((float)crushed * max_v);
-  int idx0 = crushed % buff_len;
-
-  float a = fabsf(buff[idx0]);
-
-  int idx1 = (int)(a * (crushed / 2)) % buff_len;
-
-  float b = fabsf(buff[idx1]);
-
-  int idx2 = (int)(a * b * (idx0)) % buff_len;
-
-  float c = fabsf(buff[idx2]);
-
-
-  float d = ((a + b + c) / 3.0f) / fmaxf(max_v, 0.00001f);
-  float e = mif_fract(cosf((float)(crushed) * M_PI));
-  float f = mif_fract(sinf(seed / M_PI) / M_PI);
-
-
-
-  float scale = mif_fract(atan2f(atan2f(d, e), f));//rand() / (float) RAND_MAX; /* [0, 1.0] */
+  uint32_t s = (11U+mif_float_bits_to_uint(seed)) * 5358U;
+  uint32_t x = ~s * 3U;
+  uint32_t y = 503 * (x << 3U) + s;
+  s ^= (s << 17U); s ^= (s >> 13U); s ^= (s << 5U);
+  x ^= (x << 4U); x ^= (x >> 2U); x ^= (x << 15U);
+  y ^= (y << 11U); y ^= (y >> 9U); y ^= (y << 3U);
+  uint32_t n = (s * x + y) + (x ^ y) + (y ^ s);
+  uint32_t z = ~n * 42891U;
+  n ^= (n << 2U); n ^= (n >> 9U); n ^= (n << 2U);
+  float scale = (float)(n*1013U+z) / (float)0xFFFFFFFFU;
   return mif_clamp(min + scale * ( max - min ), min, max);
-
 }
 
 float mif_safe(float v) {
   if (!(isinf(v) || isnan(v))) return v;
   return MIF_TINY_FLOAT;
 }
-
 
 float mif_avg(float* values, int64_t length) {
   if (!values || length <= 0) return 0.0f;

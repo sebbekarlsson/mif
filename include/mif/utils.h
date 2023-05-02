@@ -70,7 +70,6 @@ float mif_rand(float seed);
 
 float mif_random_float(float min, float max, float seed);
 
-
 float mif_safe(float v);
 
 
@@ -91,5 +90,6 @@ float mif_get_hash2(int64_t index);
 
 int mif_lev(const char* a, const char* b);
 
+uint32_t mif_float_bits_to_uint(float f);
 
 #endif
