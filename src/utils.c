@@ -37,6 +37,9 @@ float mif_inv(float v) {
 }
 
 
+float mif_sigmoid(float x) {
+  return 1.0f / (1.0 + expf(-x));
+}
 
 float mif_gold_ratio_est(float x, float y) {
   if (fabsf(x) <= MIF_TINY_FLOAT) return 0.0f;

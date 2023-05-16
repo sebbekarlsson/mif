@@ -29,6 +29,8 @@ float mif_sin_n(float v);
 
 float mif_inv(float v);
 
+float mif_sigmoid(float x);
+
 float mif_gold_ratio_est(float x, float y);
 
 float mif_gold_ratio_est_both(float x, float y);
@@ -71,7 +73,6 @@ float mif_rand(float seed);
 float mif_random_float(float min, float max, float seed);
 
 float mif_safe(float v);
-
 
 float mif_avg(float* values, int64_t length);
 

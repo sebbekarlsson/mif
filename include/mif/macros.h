@@ -9,10 +9,30 @@
 #define MAX(a, b) (a > b ? a : b)
 #endif
 
-#define MIF_WARNING(...)                                                      \
+#define MIF_WARNING(...)                                                       \
   {                                                                            \
-    printf("(MIF)(Warning)(%s): \n", __func__);   \
+    printf("(MIF)(Warning)(%s): \n", __func__);                                \
     fprintf(__VA_ARGS__);                                                      \
+  }
+
+#define MIF_WARNING_RETURN(ret, ...)                                           \
+  {                                                                            \
+    printf("(MIF)(Warning)(%s): \n", __func__);                                \
+    fprintf(__VA_ARGS__);                                                      \
+    return ret;                                                                \
+  }
+
+#define MIF_ASSERT_RETURN(expr, ret)                                           \
+  {                                                                            \
+    if (!(expr)) {                                                             \
+      MIF_WARNING_RETURN(ret, stderr, "Assertion for `%s` failed.\n", #expr);  \
+    }                                                                          \
+  }
+
+#define MIF_WARNING_NOT_RETURN_NOT_INITIALIZED(ret)                            \
+  {                                                                            \
+    fprintf(stderr, "(MIF)(Warning, Not initialized.)(%s): \n", __func__);     \
+    return ret;                                                                \
   }
 
 #endif
