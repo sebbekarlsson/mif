@@ -151,7 +151,7 @@ void mif_smooth_range(float peak, float* out, int len) {
   }
 }
 
-void mif_smooth_range_inv(float peak, float *out, int len) {
+void mif_smooth_range_inv(float *out, int len) {
   if (!out || len <= 0) return;
 
   int half = len / 2;
