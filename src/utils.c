@@ -151,6 +151,20 @@ void mif_smooth_range(float peak, float* out, int len) {
   }
 }
 
+void mif_smooth_range_inv(float peak, float *out, int len) {
+  if (!out || len <= 0) return;
+
+  int half = len / 2;
+  
+  for (int i = 0; i < half; i++) {
+    out[i] = 1.0f - (((float)i) / ((float)half));
+  }
+
+  for (int i = 0; i < half; i++) {
+    out[MAX(0, len - (1 + i))] = out[i];
+  }
+}
+
 int mif_crush(int seed) {
   seed ^= seed << 13;
   seed ^= seed >> 17;
