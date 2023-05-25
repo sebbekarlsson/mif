@@ -347,3 +347,13 @@ static inline int mif_lev_(const char* a, const char* b, int la, int lb) {
 int mif_lev(const char* a, const char* b) {
   return mif_lev_(a, b, strlen(a), strlen(b));
 }
+
+float mif_sgt(float a, float b, float s) {
+  float h = mif_clamp(0.5f + 0.5f * (a - b) / s, 0.0f, 1.0f);
+  return mif_lerp(0.0, 1.0, h*h*(3.0f-2.0f*h));
+}
+
+float mif_slt(float a, float b, float s) {
+  float h = mif_clamp(0.5f + 0.5f * (b - a) / s, 0.0f, 1.0f);
+  return mif_lerp(0.0f, 1.0f, h*h*(3.0f-2.0f*h));
+}

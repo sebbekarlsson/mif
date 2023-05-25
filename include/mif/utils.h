@@ -95,4 +95,7 @@ int mif_lev(const char* a, const char* b);
 
 uint32_t mif_float_bits_to_uint(float f);
 
+float mif_sgt(float a, float b, float s);
+float mif_slt(float a, float b, float s);
+
 #endif
