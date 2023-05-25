@@ -7,6 +7,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+float mif_sign(float x) {
+  return x < 0 ? -1 : 1;
+}
+
 float mif_clamp(float v, float min, float max) {
   return fmaxf(min, fminf(max, v));
 }
@@ -356,4 +360,29 @@ float mif_sgt(float a, float b, float s) {
 float mif_slt(float a, float b, float s) {
   float h = mif_clamp(0.5f + 0.5f * (b - a) / s, 0.0f, 1.0f);
   return mif_lerp(0.0f, 1.0f, h*h*(3.0f-2.0f*h));
+}
+
+float mif_smin(float a, float b, float k) {
+    float h = mif_clamp(0.5 + 0.5 * (b - a) / k, 0.0, 1.0);
+    return mif_lerp(b, a, h) - k * h * (1.0 - h);
+}
+
+float mif_smax(float a, float b, float k) {
+    float h = mif_clamp(0.5 + 0.5 * (b - a) / k, 0.0, 1.0);
+    return mif_lerp(a, b, h) + k * h * (1.0 - h);
+}
+
+float mif_smin_fixed(float a, float b, float k) {
+  float v1 = mif_smin(a, b, k);
+
+  float m = fminf(a, b);
+  int sig = (int)mif_sign(m);
+
+  if ((int)mif_sign(v1) != sig)
+    v1 *= -1;
+
+  return v1;
+}
+float mif_smax_fixed(float a, float b, float k) {
+  return 0.0f;
 }

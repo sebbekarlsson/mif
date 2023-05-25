@@ -97,5 +97,9 @@ uint32_t mif_float_bits_to_uint(float f);
 
 float mif_sgt(float a, float b, float s);
 float mif_slt(float a, float b, float s);
+float mif_smin(float a, float b, float k);
+float mif_smax(float a, float b, float k);
 
+float mif_smin_fixed(float a, float b, float k);
+float mif_smax_fixed(float a, float b, float k);
 #endif
