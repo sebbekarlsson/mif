@@ -386,7 +386,7 @@ float mif_smin_fixed(float a, float b, float k) {
 float mif_smax_fixed(float a, float b, float k) {
   float v1 = mif_smax(a, b, k);
 
-  float m = fminf(a, b);
+  float m = fmaxf(a, b);
   int sig = (int)mif_sign(m);
 
   if ((int)mif_sign(v1) != sig)
