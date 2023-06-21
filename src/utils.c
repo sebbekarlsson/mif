@@ -338,6 +338,31 @@ int64_t mif_count_peaks(float* values, int64_t length) {
   return nr_peaks;
 }
 
+int mif_lev_fast(const char* a, const char* b) {
+  if (a == 0 || b == 0) return 0;
+  int la = strlen(a);
+  int lb = strlen(b);
+  if (la <= 0 || lb <= 0) return 0;
+  
+  int matrix[la+1][lb+1];
+
+  for (int i = 0; i <= la; i++) {
+    for (int j = 0; j <= lb; j++) {
+      if (i == 0) {
+        matrix[i][j] = j;
+      } else if (j == 0) {
+        matrix[i][j] = i;
+      } else if (a[i-1] == b[j-1]) {
+        matrix[i][j] = matrix[i-1][j-1];
+      } else {
+        matrix[i][j] = MIN(matrix[i][j-1], MIN(matrix[i-1][j], matrix[i-1][j-1])) + 1;
+      }
+    }
+  }
+  
+  return matrix[la][lb];
+}
+
 static inline int mif_lev_(const char* a, const char* b, int la, int lb) {
   if (la <= 0) return lb;
   if (lb <= 0) return la;

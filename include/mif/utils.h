@@ -91,7 +91,9 @@ int64_t mif_count_peaks(float* values, int64_t length);
 float mif_get_hash(int64_t index);
 float mif_get_hash2(int64_t index);
 
-int mif_lev(const char* a, const char* b);
+int mif_lev(const char *a, const char *b);
+int mif_lev_fast(const char* a, const char* b);
+
 
 uint32_t mif_float_bits_to_uint(float f);
 
