@@ -6,6 +6,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 float mif_sign(float x) {
   return x < 0 ? -1 : 1;
@@ -338,7 +339,7 @@ int64_t mif_count_peaks(float* values, int64_t length) {
   return nr_peaks;
 }
 
-int mif_lev_fast(const char* a, const char* b) {
+int mif_lev(const char* a, const char* b) {
   if (a == 0 || b == 0) return 0;
   int la = strlen(a);
   int lb = strlen(b);
@@ -363,6 +364,52 @@ int mif_lev_fast(const char* a, const char* b) {
   return matrix[la][lb];
 }
 
+int mif_lev_icase(const char *a, const char *b) {
+    if (a == 0 || b == 0) return 0;
+  int la = strlen(a);
+  int lb = strlen(b);
+  if (la <= 0 || lb <= 0) return 0;
+  
+  int matrix[la+1][lb+1];
+
+  for (int i = 0; i <= la; i++) {
+    for (int j = 0; j <= lb; j++) {
+      if (i == 0) {
+        matrix[i][j] = j;
+      } else if (j == 0) {
+        matrix[i][j] = i;
+      } else if (tolower(a[i-1]) == tolower(b[j-1])) {
+        matrix[i][j] = matrix[i-1][j-1];
+      } else {
+        matrix[i][j] = MIN(matrix[i][j-1], MIN(matrix[i-1][j], matrix[i-1][j-1])) + 1;
+      }
+    }
+  }
+  
+  return matrix[la][lb];
+}
+
+float mif_strcmp(const char *a, const char *b, bool case_insensitive) {
+  if (a == b) return 1.0f;
+  if (a == 0 || b == 0) return 0.0f;
+
+  unsigned long len_a = strlen(a);
+  unsigned long len_b = strlen(b);
+
+  if (len_a <= 0 || len_b <= 0) return 0.0f;
+
+  unsigned long max_len = MAX(len_a, len_b);
+
+  if (max_len <= 0) return 0.0f;
+
+  float max_len_float = (float)max_len;
+
+  float dist = (float)(case_insensitive ? mif_lev_icase(a, b) : mif_lev(a, b));
+
+  return mif_clamp(1.0f - (dist / max_len_float), 0.0f, 1.0f);
+}
+
+/* === slow version
 static inline int mif_lev_(const char* a, const char* b, int la, int lb) {
   if (la <= 0) return lb;
   if (lb <= 0) return la;
@@ -372,10 +419,7 @@ static inline int mif_lev_(const char* a, const char* b, int la, int lb) {
   int d3 = mif_lev_(a, b, la-1, lb-1) + 1;
   return MIN(d1, MIN(d2, d3));
 }
-
-int mif_lev(const char* a, const char* b) {
-  return mif_lev_(a, b, strlen(a), strlen(b));
-}
+*/
 
 float mif_sgt(float a, float b, float s) {
   float h = mif_clamp(0.5f + 0.5f * (a - b) / s, 0.0f, 1.0f);

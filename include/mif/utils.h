@@ -3,14 +3,14 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#define MIF_SIGN(v) (v < 0.0f ? -1.0f : 1.0f)
+#define MIF_SIGN(v) ((v) < 0.0f ? -1.0f : 1.0f)
 
 #ifndef MAX
-#define MAX(a, b) (a > b ? a : b)
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
 #endif
 
 #ifndef MIN
-#define MIN(a, b) (a < b ? a : b)
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
 #endif
 
 #define MIF_ABS(v) ((v) < 0 ? ((v) * -1) : (v))
@@ -91,8 +91,10 @@ int64_t mif_count_peaks(float* values, int64_t length);
 float mif_get_hash(int64_t index);
 float mif_get_hash2(int64_t index);
 
-int mif_lev(const char *a, const char *b);
-int mif_lev_fast(const char* a, const char* b);
+int mif_lev(const char* a, const char* b);
+int mif_lev_icase(const char *a, const char *b);
+
+float mif_strcmp(const char *a, const char *b, bool case_insensitive);
 
 
 uint32_t mif_float_bits_to_uint(float f);
