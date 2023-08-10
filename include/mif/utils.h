@@ -72,6 +72,7 @@ int mif_crush(int seed);
 
 float mif_rand(float seed);
 
+uint32_t mif_permute_uint32(uint32_t seed);
 float mif_random_float(float min, float max, float seed);
 float mif_random_float_from_uint32(float min, float max, uint32_t seed);
 

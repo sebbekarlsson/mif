@@ -3,10 +3,6 @@
 #include <stdio.h>
 
 int main(int argc, char *argv[]) {
-  const char* a = "hello world";
-  const char* b = "Hello worlc";
-
-  float similar = mif_strcmp(a, b, true);
-  printf("similar: %1.6f\n", similar);
+  printf("%d\n", mif_permute_uint32(mif_permute_uint32(1231235U)*45192U));
   return 0;
 }

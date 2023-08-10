@@ -209,6 +209,19 @@ uint32_t mif_float_bits_to_uint(float f) {
   return converted.i;
 }
 
+uint32_t mif_permute_uint32(uint32_t seed) {
+  uint32_t s = (11U+seed) * 5358U;
+  uint32_t x = ~s * 3U;
+  uint32_t y = 503U * (x << 3U) + s;
+  s ^= (s << 17U); s ^= (s >> 13U); s ^= (s << 5U);
+  x ^= (x << 4U); x ^= (x >> 2U); x ^= (x << 15U);
+  y ^= (y << 11U); y ^= (y >> 9U); y ^= (y << 3U);
+  uint32_t n = (s * x + y) + (x ^ y) + (y ^ s);
+  uint32_t z = ~n * 42891U;
+  n ^= (n << 2U); n ^= (n >> 9U); n ^= (n << 2U);
+  return (n*1013U+z)*(n + ~x);
+}
+
 float mif_random_float(float min, float max, float seed) {
   uint32_t s = (11U+mif_float_bits_to_uint(seed)) * 5358U;
   uint32_t x = ~s * 3U;
@@ -330,10 +343,6 @@ float mif_max_abs(float* values, int64_t length, int64_t* index_out) {
 int64_t mif_count_peaks(float* values, int64_t length) {
   if (!values || length <= 0) return 0;
 
-  float max_v = mif_max_abs(values, length, 0);
-
-  float target = max_v;
-  float tolerance = 0.00001f;
   int64_t nr_peaks = 0;
 
   int last_sign = 42;
