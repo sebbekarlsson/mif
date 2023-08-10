@@ -73,6 +73,8 @@ int mif_crush(int seed);
 float mif_rand(float seed);
 
 float mif_random_float(float min, float max, float seed);
+float mif_random_float_from_uint32(float min, float max, uint32_t seed);
+
 
 float mif_safe(float v);
 
@@ -106,4 +108,6 @@ float mif_smax(float a, float b, float k);
 
 float mif_smin_fixed(float a, float b, float k);
 float mif_smax_fixed(float a, float b, float k);
+
+
 #endif

@@ -223,6 +223,20 @@ float mif_random_float(float min, float max, float seed) {
   return mif_clamp(min + scale * ( max - min ), min, max);
 }
 
+float mif_random_float_from_uint32(float min, float max, uint32_t seed) {
+  uint32_t s = (11U+seed) * 5358U;
+  uint32_t x = ~s * 3U;
+  uint32_t y = 503U * (x << 3U) + s;
+  s ^= (s << 17U); s ^= (s >> 13U); s ^= (s << 5U);
+  x ^= (x << 4U); x ^= (x >> 2U); x ^= (x << 15U);
+  y ^= (y << 11U); y ^= (y >> 9U); y ^= (y << 3U);
+  uint32_t n = (s * x + y) + (x ^ y) + (y ^ s);
+  uint32_t z = ~n * 42891U;
+  n ^= (n << 2U); n ^= (n >> 9U); n ^= (n << 2U);
+  float scale = (float)(n*1013U+z) / (float)0xFFFFFFFFU;
+  return mif_clamp(min + scale * ( max - min ), min, max);
+}
+
 float mif_safe(float v) {
   if (!(isinf(v) || isnan(v))) return v;
   return MIF_TINY_FLOAT;
