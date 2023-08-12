@@ -16,12 +16,25 @@ float mif_clamp(float v, float min, float max) {
   return fmaxf(min, fminf(max, v));
 }
 
+double mif_clampd(double v, double min, double max) {
+  return fmax(min, fmin(max, v));
+}
+
 float mif_lerp(float from, float to, float scale) {
+  return from + (to - from) * scale;
+}
+
+double mif_lerpd(double from, double to, double scale) {
   return from + (to - from) * scale;
 }
 
 float mif_smoothstep(float edge0, float edge1, float value) {
   value = mif_clamp((value - edge0) / (edge1 - edge0), 0.0f, 1.0f);
+  return value * value * (3.0f - 2.0 * value);
+}
+
+double mif_smoothstepd(double edge0, double edge1, double value) {
+  value = mif_clampd((value - edge0) / (edge1 - edge0), 0.0f, 1.0f);
   return value * value * (3.0f - 2.0 * value);
 }
 

@@ -17,9 +17,15 @@
 
 float mif_clamp(float v, float min, float max);
 
+double mif_clampd(double v, double min, double max);
+
 float mif_lerp(float from, float to, float scale);
 
+double mif_lerpd(double from, double to, double scale);
+
 float mif_smoothstep(float edge0, float edge1, float value);
+
+double mif_smoothstepd(double edge0, double edge1, double value);
 
 float mif_fract(float v);
 
