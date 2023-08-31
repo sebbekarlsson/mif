@@ -5,6 +5,13 @@ project(mif)
 file(GLOB PUBLIC_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/include/*.h)
 file(GLOB mif_files ${CMAKE_CURRENT_SOURCE_DIR}/src/*.c)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON CACHE INTERNAL ${CMAKE_CURRENT_SOURCE_DIR}/)
+set(COMMANDS_FILE ${CMAKE_CURRENT_SOURCE_DIR}/compile_commands.json)
+
+if (EXISTS ${COMMANDS_FILE})
+  file(COPY ${COMMANDS_FILE} DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/)
+endif()
+
 message(${mif_files})
 
 add_executable(mif_e ${mif_files})
@@ -53,8 +60,8 @@ target_include_directories(
 
 include(FetchContent)
 
-
 set(LIBRARIES m)
+
 
 target_link_libraries(mif_e PRIVATE ${LIBRARIES})
 target_link_libraries(mif PRIVATE ${LIBRARIES})
