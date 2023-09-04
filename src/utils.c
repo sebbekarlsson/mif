@@ -504,9 +504,9 @@ int mif_fillf(float* buffer, int64_t length, double step, MifFillFloatsFunction 
   if (buffer == 0 || length <= 0 || step <= 0 || func == 0) return 0;
 
   for (int64_t i = 0; i < length; i++) {
-    float nid = (double)i / (double)length;
-    float snid = step * nid;
-    buffer[i] = func(snid);
+    double nid = (double)i / (double)length;
+    double snid = step * nid;
+    buffer[i] = (float)func(snid);
   }
 
   return 1;

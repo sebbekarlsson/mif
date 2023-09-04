@@ -118,7 +118,7 @@ float mif_smax_fixed(float a, float b, float k);
 
 
 
-typedef float (*MifFillFloatsFunction)(float x);
+typedef double (*MifFillFloatsFunction)(double x);
 
 int mif_fillf(float* buffer, int64_t length, double step, MifFillFloatsFunction func);
 

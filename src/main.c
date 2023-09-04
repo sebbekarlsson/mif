@@ -10,7 +10,7 @@ int main(int argc, char *argv[]) {
 
   float buff[16] = {0};
 
-  mif_fillf(buff, 16, 1.0 / MIF_TAU, sqrtf);
+  mif_fillf(buff, 16, 1.0 /20000.0, sqrt);
 
   mif_print_floats(buff, 16
                    , stdout);
