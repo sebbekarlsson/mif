@@ -500,11 +500,11 @@ float mif_smax_fixed(float a, float b, float k) {
   return v1;
 }
 
-int mif_fillf(float* buffer, int64_t length, float step, MifFillFloatsFunction func) {
+int mif_fillf(float* buffer, int64_t length, double step, MifFillFloatsFunction func) {
   if (buffer == 0 || length <= 0 || step <= 0 || func == 0) return 0;
 
   for (int64_t i = 0; i < length; i++) {
-    float nid = (float)i / (float)length;
+    float nid = (double)i / (double)length;
     float snid = step * nid;
     buffer[i] = func(snid);
   }

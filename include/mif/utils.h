@@ -120,7 +120,7 @@ float mif_smax_fixed(float a, float b, float k);
 
 typedef float (*MifFillFloatsFunction)(float x);
 
-int mif_fillf(float* buffer, int64_t length, float step, MifFillFloatsFunction func);
+int mif_fillf(float* buffer, int64_t length, double step, MifFillFloatsFunction func);
 
 void mif_print_floats(float* buffer, int64_t length, FILE* fp);
 
