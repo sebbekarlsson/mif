@@ -499,3 +499,26 @@ float mif_smax_fixed(float a, float b, float k) {
 
   return v1;
 }
+
+int mif_fillf(float* buffer, int64_t length, float step, MifFillFloatsFunction func) {
+  if (buffer == 0 || length <= 0 || step <= 0 || func == 0) return 0;
+
+  for (int64_t i = 0; i < length; i++) {
+    float nid = (float)i / (float)length;
+    float snid = step * nid;
+    buffer[i] = func(snid);
+  }
+
+  return 1;
+}
+
+void mif_print_floats(float* buffer, int64_t length, FILE* fp) {
+  if (buffer == 0 || length <= 0 || fp == 0) return;
+  
+  for (int64_t i = 0; i < length; i++) {
+    fprintf(fp, "%1.6f", buffer[i]);
+
+    if (i < length-1) fprintf(fp, ",\n");
+    else fprintf(fp, "\n");
+  }
+}

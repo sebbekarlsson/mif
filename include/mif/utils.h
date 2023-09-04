@@ -2,6 +2,7 @@
 #define MIF_UTILS_H
 #include <stdbool.h>
 #include <stdint.h>
+#include <stdio.h>
 
 #define MIF_SIGN(v) ((v) < 0.0f ? -1.0f : 1.0f)
 
@@ -115,5 +116,12 @@ float mif_smax(float a, float b, float k);
 float mif_smin_fixed(float a, float b, float k);
 float mif_smax_fixed(float a, float b, float k);
 
+
+
+typedef float (*MifFillFloatsFunction)(float x);
+
+int mif_fillf(float* buffer, int64_t length, float step, MifFillFloatsFunction func);
+
+void mif_print_floats(float* buffer, int64_t length, FILE* fp);
 
 #endif
