@@ -42,6 +42,10 @@ float mif_gold_ratio_est(float x, float y);
 
 float mif_gold_ratio_est_both(float x, float y);
 
+float mif_subtract(float a, float b);
+
+double mif_subtractd(double a, double b);
+
 int mif_cantor(int x, int y);
 
 void mif_decant(int c, int* x, int* y);

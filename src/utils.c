@@ -76,6 +76,16 @@ float mif_gold_ratio_est_both(float x, float y) {
   return fmaxf(mif_gold_ratio_est(x, y), mif_gold_ratio_est(y, x));
 }
 
+float mif_subtract(float a, float b) {
+  float sig = a < 0 ? -1 : 1;
+  return (fabsf(a)-b)*sig;
+}
+
+double mif_subtractd(double a, double b) {
+  double sig = a < 0 ? -1 : 1;
+  return (fabs(a)-b)*sig;
+}
+
 int mif_cantor(int k1, int k2) {
   return ((k1 + k2) * (k1 + k2 + 1)) / 2 + k2;
 }

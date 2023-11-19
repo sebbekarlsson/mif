@@ -8,12 +8,8 @@
 
 int main(int argc, char *argv[]) {
 
-  float buff[16] = {0};
 
-  mif_fillf(buff, 16, 1.0 /20000.0, sqrt);
-
-  mif_print_floats(buff, 16
-                   , stdout);
+  printf("%12.6f\n", mif_subtractd(-0.35, 0.59));
   
   return 0;
 }
