@@ -7,6 +7,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <limits.h>
+#include <float.h>
 
 float mif_sign(float x) {
   return x < 0 ? -1 : 1;
@@ -531,4 +533,12 @@ void mif_print_floats(float* buffer, int64_t length, FILE* fp) {
     if (i < length-1) fprintf(fp, ",\n");
     else fprintf(fp, "\n");
   }
+}
+
+bool mif_float_is_bad(float v) {
+  return isinff(v) || isnanf(v) || (fabsf(v) - 0.0001f) >= FLT_MAX; 
+}
+
+bool mif_double_is_bad(double v) {
+  return isinf(v) || isnan(v) || (fabs(v) - 0.0001f) >= DBL_MAX; 
 }

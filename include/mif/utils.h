@@ -128,4 +128,8 @@ int mif_fillf(float* buffer, int64_t length, double step, MifFillFloatsFunction 
 
 void mif_print_floats(float* buffer, int64_t length, FILE* fp);
 
+bool mif_float_is_bad(float v);
+
+bool mif_double_is_bad(double v);
+
 #endif
