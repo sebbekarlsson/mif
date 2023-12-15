@@ -84,6 +84,14 @@ Vector3 vector3_mul_mat4(Vector3 v, float w, mat4s m) {
   return VEC3_FROM_GLM(r);
 }
 
+Vector3 vector3_mul_mat4_raw(Vector3 v, float w, mat4 m) {
+  vec4 dest = GLM_VEC4_ZERO_INIT;
+  glm_mat4_mulv3(m, (vec3){v.x, v.y, v.z}, w, dest);
+  Vector3 r = VEC3(dest[0], dest[1], dest[2]);
+  r.w = dest[3];
+  return r;
+}
+
 ///////////////////////////////////////////////////////////////////
 
 Vector3 vector3_lerp_v3_v3_v3(Vector3 start, Vector3 end, Vector3 scale) {

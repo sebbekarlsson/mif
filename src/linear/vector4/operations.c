@@ -57,6 +57,13 @@ Vector4 vector4_mul_mat4(Vector4 v, mat4s m) {
   return VEC4_FROM_GLM(r);
 }
 
+Vector4 vector4_mul_mat4_raw(Vector4 v, mat4 m) {
+  vec4 dest = GLM_VEC4_ZERO_INIT;
+  glm_mat4_mulv(m, (vec4){v.x, v.y, v.z, v.w}, dest);
+  Vector4 r = VEC4(dest[0], dest[1], dest[2], dest[3]);
+  return r;
+}
+
 ///////////////////////////////////////////////////////////////////
 
 Vector4 vector4_lerp_v4_v4_v4(Vector4 start, Vector4 end, Vector4 scale) {
