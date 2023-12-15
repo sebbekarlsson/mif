@@ -1,6 +1,8 @@
 #ifndef MIF_LINEAR_VECTOR3_OPERATIONS_H
 #define MIF_LINEAR_VECTOR3_OPERATIONS_H
 #include <mif/linear/vector3/vector3.h>
+#include <cglm/struct/mat4.h>
+#include <cglm/struct/mat3.h>
 #include <stdbool.h>
 
 typedef float (*MifVector3CallFunction)(float x);
@@ -20,6 +22,9 @@ Vector3 vector3_unit(Vector3 a);
 Vector3 vector3_inv(Vector3 a);
 Vector3 vector3_rescale(Vector3 v, float scale);
 Vector3 vector3_call(Vector3 a, MifVector3CallFunction func);
+
+Vector3 vector3_mul_mat3(Vector3 v, mat3s m);
+Vector3 vector3_mul_mat4(Vector3 v, float w, mat4s m);
 
 Vector3 vector3_lerp_v3_v3_v3(Vector3 start, Vector3 end, Vector3 scale);
 Vector3 vector3_lerp_v3_v3_f(Vector3 start, Vector3 end, float scale);

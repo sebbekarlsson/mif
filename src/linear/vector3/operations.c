@@ -74,6 +74,16 @@ Vector3 vector3_call(Vector3 a, MifVector3CallFunction func) {
   return VEC3(func(a.x), func(a.y), func(a.z));
 }
 
+Vector3 vector3_mul_mat3(Vector3 v, mat3s m) {
+  vec3s r = glms_mat3_mulv(m, VEC3_GLM(v));
+  return VEC3_FROM_GLM(r);
+}
+
+Vector3 vector3_mul_mat4(Vector3 v, float w, mat4s m) {
+  vec3s r = glms_mat4_mulv3(m, VEC3_GLM(v), w);
+  return VEC3_FROM_GLM(r);
+}
+
 ///////////////////////////////////////////////////////////////////
 
 Vector3 vector3_lerp_v3_v3_v3(Vector3 start, Vector3 end, Vector3 scale) {

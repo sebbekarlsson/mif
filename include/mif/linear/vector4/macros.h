@@ -13,4 +13,7 @@
 
 #define VEC4_PRINT_PRECISE(v) printf("VEC4(%12.6f, %12.6f, %12.6f, %12.6f)\n", VEC4_SPREAD(v))
 
+#define VEC4_GLM(V)((vec4s){ .x = (V).x, .y = (V).y, .z = (V).z, .w = (V).w })
+#define VEC4_FROM_GLM(V)(VEC4((V).x, (V).y, (V).z, (V).w))
+
 #endif

@@ -52,6 +52,11 @@ Vector4 vector4_call(Vector4 a, MifVector4CallFunction func) {
   return VEC4(func(a.x), func(a.y), func(a.z), func(a.w));
 }
 
+Vector4 vector4_mul_mat4(Vector4 v, mat4s m) {
+  vec4s r = glms_mat4_mulv(m, VEC4_GLM(v));
+  return VEC4_FROM_GLM(r);
+}
+
 ///////////////////////////////////////////////////////////////////
 
 Vector4 vector4_lerp_v4_v4_v4(Vector4 start, Vector4 end, Vector4 scale) {

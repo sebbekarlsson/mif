@@ -60,7 +60,18 @@ target_include_directories(
 
 include(FetchContent)
 
-set(LIBRARIES m)
+if (NOT TARGET cglm)
+FetchContent_Declare(
+  cglm
+  GIT_REPOSITORY https://github.com/recp/cglm.git
+ GIT_TAG "v0.9.1"
+  )
+FetchContent_MakeAvailable(cglm)
+endif()
+
+    
+
+set(LIBRARIES m cglm)
 
 
 target_link_libraries(mif_e PRIVATE ${LIBRARIES})

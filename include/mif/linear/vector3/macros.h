@@ -13,4 +13,7 @@
 
 #define VEC3_PRINT_PRECISE(v) printf("VEC3(%12.6f, %12.6f, %12.6f)\n", VEC3_SPREAD(v))
 
+#define VEC3_GLM(V)((vec3s){ .x = (V).x, .y = (V).y, .z = (V).z })
+#define VEC3_FROM_GLM(V)(VEC3((V).x, (V).y, (V).z))
+
 #endif

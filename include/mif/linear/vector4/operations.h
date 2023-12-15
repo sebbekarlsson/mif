@@ -1,6 +1,7 @@
 #ifndef MIF_LINEAR_VECTOR4_OPERATIONS_H
 #define MIF_LINEAR_VECTOR4_OPERATIONS_H
 #include <mif/linear/vector4/vector4.h>
+#include <cglm/struct/mat4.h>
 #include <stdbool.h>
 
 typedef float (*MifVector4CallFunction)(float x);
@@ -15,6 +16,8 @@ Vector4 vector4_unit(Vector4 a);
 Vector4 vector4_inv(Vector4 a);
 Vector4 vector4_rescale(Vector4 v, float scale);
 Vector4 vector4_call(Vector4 a, MifVector4CallFunction func);
+
+Vector4 vector4_mul_mat4(Vector4 v, mat4s m);
 
 Vector4 vector4_lerp_v4_v4_v4(Vector4 start, Vector4 end, Vector4 scale);
 Vector4 vector4_lerp_v4_v4_f(Vector4 start, Vector4 end, float scale);
