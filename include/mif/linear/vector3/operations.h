@@ -47,6 +47,7 @@ float vector3_mag(Vector3 a);
 float vector3_dot(Vector3 a, Vector3 b);
 float vector3_distance(Vector3 a, Vector3 b);
 float vector3_triple_product_scalar(Vector3 a, Vector3 b, Vector3 c);
+float vector3_get_component(Vector3 a, uint8_t idx);
 
 bool vector3_is_zero(Vector3 v);
 bool vector3_is_bad(Vector3 v);

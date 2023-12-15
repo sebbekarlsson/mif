@@ -2,6 +2,7 @@
 #include <mif/linear/vector3/operations.h>
 #include <mif/linear/vector3/macros.h>
 #include <mif/utils.h>
+#include <mif/macros.h>
 #include <math.h>
 
 Vector3 vector3_add(Vector3 a, Vector3 b) {
@@ -142,6 +143,12 @@ float vector3_distance(Vector3 a, Vector3 b) {
 
 float vector3_triple_product_scalar(Vector3 a, Vector3 b, Vector3 c) {
   return vector3_dot(a, vector3_cross(b, c));
+}
+
+float vector3_get_component(Vector3 a, uint8_t idx) {
+  float* data = (float*)&a;
+  idx = MAX(idx, 0);
+  return data[idx % 3];
 }
 
 ///////////////////////////////////////////////////////////////////
