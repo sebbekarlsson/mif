@@ -1,7 +1,7 @@
 #ifndef MIF_LINEAR_VECTOR4_MACROS_H
 #define MIF_LINEAR_VECTOR4_MACROS_H
 
-#define VEC4(X, Y, Z, W) (Vector4){ .x = (X), .y = (Y), .z = (Z), .w = (W) }
+#define VEC4(x, y, z, w) ((Vector4){ x, y, z, w })
 #define VEC41(V)(VEC4(V, V, V, V))
 
 #define VEC4_OP(a, op, b) ((Vector4){.x = (a).x op (b).x, .y = (a).y op (b).y, .z = (a).z op (b).z, .w = (a).w op (b).w})

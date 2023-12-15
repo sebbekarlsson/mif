@@ -1,7 +1,7 @@
 #ifndef MIF_LINEAR_VECTOR2_MACROS_H
 #define MIF_LINEAR_VECTOR2_MACROS_H
 
-#define VEC2(X, Y) (Vector2){ .x = (X), .y = (Y) }
+#define VEC2(x, y) ((Vector2){ x, y })
 #define VEC21(V)(VEC2(V, V, V))
 
 #define VEC2_OP(a, op, b) ((Vector2){.x = (a).x op (b).x, .y = (a).y op (b).y})

@@ -1,7 +1,7 @@
 #ifndef MIF_LINEAR_VECTOR3_MACROS_H
 #define MIF_LINEAR_VECTOR3_MACROS_H
 
-#define VEC3(X, Y, Z) (Vector3){ .x = (X), .y = (Y), .z = (Z) }
+#define VEC3(x, y, z) ((Vector3){ x, y, z })
 #define VEC31(V)(VEC3(V, V, V))
 
 #define VEC3_OP(a, op, b) ((Vector3){.x = (a).x op (b).x, .y = (a).y op (b).y, .z = (a).z op (b).z})
