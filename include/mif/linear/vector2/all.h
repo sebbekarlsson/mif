@@ -3,4 +3,5 @@
 #include <mif/linear/vector2/macros.h>
 #include <mif/linear/vector2/vector2.h>
 #include <mif/linear/vector2/operations.h>
+#include <mif/linear/vector2/buffer.h>
 #endif
