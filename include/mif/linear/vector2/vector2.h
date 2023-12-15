@@ -8,6 +8,11 @@ typedef struct {
 } Vector2;
 
 typedef struct {
+  int64_t x;
+  int64_t y;
+} Vector2i64;
+
+typedef struct {
   Vector2 a;
   Vector2 b;
 } Vector2Pair;
