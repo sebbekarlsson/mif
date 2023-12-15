@@ -194,7 +194,7 @@ int mif_matrix_copy(MifMatrix *dest, MifMatrix m) {
   MIF_ASSERT_RETURN(m.rows != 0, 0);
   MIF_ASSERT_RETURN(m.cols != 0, 0);
   if (!mif_matrix_init(dest, m.rows, m.cols))
-    MIF_WARNING_NOT_RETURN_NOT_INITIALIZED(0);
+    MIF_WARNING_RETURN_NOT_INITIALIZED(0);
 
   MIF_ASSERT_RETURN(dest->data != 0, 0);
 

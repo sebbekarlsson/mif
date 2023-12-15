@@ -9,6 +9,11 @@
 #define MAX(a, b) (a > b ? a : b)
 #endif
 
+#define MIF_FREE(v) free(v)
+
+#define MIF_REALLOC(v, s) realloc(v, s)
+#define MIF_CALLOC(n, s) calloc(v, s)
+
 #define MIF_WARNING(...)                                                       \
   {                                                                            \
     printf("(MIF)(Warning)(%s): \n", __func__);                                \
@@ -29,7 +34,7 @@
     }                                                                          \
   }
 
-#define MIF_WARNING_NOT_RETURN_NOT_INITIALIZED(ret)                            \
+#define MIF_WARNING_RETURN_NOT_INITIALIZED(ret)                            \
   {                                                                            \
     fprintf(stderr, "(MIF)(Warning, Not initialized.)(%s): \n", __func__);     \
     return ret;                                                                \
