@@ -1,5 +1,5 @@
-#ifndef MIF_LINEAR_VECTOR3_OPERATIONS_H
-#define MIF_LINEAR_VECTOR3_OPERATIONS_H
+#ifndef MIF_LINEAR_VECTOR4_OPERATIONS_H
+#define MIF_LINEAR_VECTOR4_OPERATIONS_H
 #include <mif/linear/vector4/vector4.h>
 #include <stdbool.h>
 
@@ -10,11 +10,6 @@ Vector4 vector4_sub(Vector4 a, Vector4 b);
 Vector4 vector4_div(Vector4 a, Vector4 b);
 Vector4 vector4_mul(Vector4 a, Vector4 b);
 Vector4 vector4_scale(Vector4 a, float s);
-
-Vector4 vector4_cross(Vector4 a, Vector4 b);
-Vector4 vector4_reflect(Vector4 I, Vector4 N);
-Vector4 vector4_refract(Vector4 I, Vector4 N, float eta);
-Vector4 vector4_triple_product(Vector4 a, Vector4 b, Vector4 c);
 
 Vector4 vector4_unit(Vector4 a);
 Vector4 vector4_inv(Vector4 a);
@@ -40,13 +35,7 @@ Vector4 vector4_clamp_v4_f_f(Vector4 a, float min, float max);
 float vector4_mag(Vector4 a);
 float vector4_dot(Vector4 a, Vector4 b);
 float vector4_distance(Vector4 a, Vector4 b);
-float vector4_triple_product_scalar(Vector4 a, Vector4 b, Vector4 c);
 
 bool vector4_is_zero(Vector4 v);
 bool vector4_is_bad(Vector4 v);
-
-Vector4Pair vector4_tangents_slow(Vector4 n);
-Vector4Pair vector4_tangents_fast(Vector4 n);
-Vector4Pair vector4_tangents_approx(Vector4 n);
-
 #endif

@@ -1,3 +1,4 @@
+#include <mif/linear/vector3/vector3.h>
 #include <mif/linear/vector3/operations.h>
 #include <mif/linear/vector3/macros.h>
 #include <mif/utils.h>
@@ -132,7 +133,7 @@ bool vector3_is_zero(Vector3 v) {
 }
 
 bool vector3_is_bad(Vector3 v) {
-  return mif_float_is_bad(v.x) || mif_float_is_zero(v.y) || mif_float_is_zero(v.z);
+  return mif_float_is_bad(v.x) || mif_float_is_bad(v.y) || mif_float_is_bad(v.z);
 }
 
 ///////////////////////////////////////////////////////////////////

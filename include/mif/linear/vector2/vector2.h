@@ -1,12 +1,10 @@
-#ifndef MIF_LINEAR_VECTOR3_H
-#define MIF_LINEAR_VECTOR3_H
+#ifndef MIF_LINEAR_VECTOR2_H
+#define MIF_LINEAR_VECTOR2_H
 #include <stdint.h>
 
 typedef struct {
   float x;
   float y;
-  float z;
-  float w;
 } Vector2;
 
 typedef struct {

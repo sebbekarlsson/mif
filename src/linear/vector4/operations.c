@@ -1,3 +1,4 @@
+#include <mif/linear/vector4/vector4.h>
 #include <mif/linear/vector4/operations.h>
 #include <mif/linear/vector4/macros.h>
 #include <mif/utils.h>
@@ -15,7 +16,8 @@ Vector4 vector4_div(Vector4 a, Vector4 b) {
   return (Vector4){
     .x = a.x / b.x,
     .y = a.y / b.y,
-    .z = a.z / b.z
+    .z = a.z / b.z,
+    .w = a.w / b.w
   };
 }
 
@@ -28,34 +30,11 @@ Vector4 vector4_scale(Vector4 a, float s) {
 }
 
 ///////////////////////////////////////////////////////////////////
-
-Vector4 vector4_cross(Vector4 a, Vector4 b) {
-  return VEC4(
-    a.y * b.z - a.z * b.y,
-    a.z * b.x - a.x * b.z,
-    a.x * b.y - a.y * b.x
-  );
-}
-
-Vector4 vector4_reflect(Vector4 I, Vector4 N) {
-  return vector4_sub(I, vector4_mul(vector4_scale(N, 2.0f), vector4_mul(I, N)));
-}
-
-Vector4 vector4_refract(Vector4 I, Vector4 N, float eta) {
-  float cosi = vector4_dot(I, N);
-  float k = 1.0f - eta * eta * (1.0f - cosi * cosi);
-  return k < 0.0f ? VEC41(0) : vector4_sub(vector4_scale(I, eta), vector4_scale(N, eta * cosi + sqrtf(k)));
-}
-
-Vector4 vector4_triple_product(Vector4 a, Vector4 b, Vector4 c) {
-  return vector4_cross(a, vector4_cross(b, c));
-}
-
 Vector4 vector4_unit(Vector4 a) {
   float mag = vector4_mag(a);
 
   if (mag <= 0.00000000000000000000000000000000000001f || (isinf(mag) || isnan(mag))) {
-    return VEC4(0, 0, 0);
+    return VEC4(0, 0, 0, 0);
   }
 
   return VEC4(a.x / mag, a.y / mag, a.z / mag, a.w / mag);
@@ -110,97 +89,27 @@ Vector4 vector4_clamp_v4_f_f(Vector4 a, float min, float max) {
 ///////////////////////////////////////////////////////////////////
 
 float vector4_mag(Vector4 a) {
-  return sqrtf(powf(a.x, 2) + powf(a.y, 2) + powf(a.z, 2));
+  return sqrtf(powf(a.x, 2) + powf(a.y, 2) + powf(a.z, 2) + powf(a.w, 2));
 }
 
 float vector4_dot(Vector4 a, Vector4 b) {
   float dot_x = a.x * b.x;
   float dot_y = a.y * b.y;
   float dot_z = a.z * b.z;
+  float dot_w = a.w * b.w;
 
-  return dot_x + dot_y + dot_z;
+  return dot_x + dot_y + dot_z + dot_w;
 }
-
 float vector4_distance(Vector4 a, Vector4 b) {
-  return sqrtf(powf(a.x - b.x, 2.0f) + powf(a.y - b.y, 2.0f) + powf(a.z - b.z, 2.0f));
-}
-
-float vector4_triple_product_scalar(Vector4 a, Vector4 b, Vector4 c) {
-  return vector4_dot(a, vector4_cross(b, c));
+  return sqrtf(powf(a.x - b.x, 2.0f) + powf(a.y - b.y, 2.0f) + powf(a.z - b.z, 2.0f) + powf(a.w - b.w, 2.0f));
 }
 
 ///////////////////////////////////////////////////////////////////
 
 bool vector4_is_zero(Vector4 v) {
-  return mif_float_is_zero(v.x) && mif_float_is_zero(v.y) && mif_float_is_zero(v.z);
+  return mif_float_is_zero(v.x) && mif_float_is_zero(v.y) && mif_float_is_zero(v.z) && mif_float_is_zero(v.w);
 }
 
 bool vector4_is_bad(Vector4 v) {
-  return mif_float_is_bad(v.x) || mif_float_is_zero(v.y) || mif_float_is_zero(v.z);
-}
-
-///////////////////////////////////////////////////////////////////
-
-Vector4Pair vector4_tangents_slow(Vector4 n) {
-  float absX = fabsf(n.x);
-  float absY = fabsf(n.y);
-  float absZ = fabsf(n.z);
-  Vector4 axis = VEC4(0.0f, 0.0f, 0.0f, 0.0f);
-  if (absX > absY) {
-    if (absX > absZ)
-      axis.x = 1.0f; // X > Y > Z, X > Z > Y
-    else
-      axis.z = 1.0f; // Z > X > Y
-  } else {
-    if (absY > absZ)
-      axis.y = 1.0f; // Y > X > Z, Y > Z > X
-    else
-      axis.z = 1.0f; // Z > Y > X
-  }
-   
-  // compute tangents
-  Vector4 t1 = vector4_unit(vector4_cross(n, axis));
-  Vector4 t2 = vector4_unit(vector4_cross(n, t1));
-  
-  return (Vector4Pair) { .a = t1, .b = t2 };
-}
-
-Vector4Pair vector4_tangents_fast(Vector4 n) {
-  Vector4 t1 = vector4_unit(n.x >= 0.57735f ? VEC4(n.y, -n.x, 0.0f) : VEC4(0.0f, n.z, -n.y));
-  Vector4 t2 = vector4_cross(n, t1);
-
-  return (Vector4Pair){ .a = t1, .b = t2 };
-}
-
-Vector4Pair vector4_tangents_approx(Vector4 n) {
-  Vector4Pair p1 = vector4_tangents_slow(n);
-  Vector4Pair p2 = vector4_tangents_fast(n);
-
-  bool ok_1 = vector4_is_zero(p1.a) == false && vector4_is_zero(p1.b) == false &&
-   vector4_is_bad(p1.a) == false && vector4_is_bad(p1.b) == false;
-
-  bool ok_2 = vector4_is_zero(p2.a) == false && vector4_is_zero(p2.b) == false &&
-   vector4_is_bad(p2.a) == false && vector4_is_bad(p2.b) == false;
-
-  if (ok_1 == false && ok_2 == false) {
-    return (Vector4Pair){0};
-  }
-
-  if (ok_1 && ok_2) {
-    Vector4 a1 = p1.a;
-    Vector4 b1 = p1.b;
-
-    Vector4 a2 = p2.a;
-    Vector4 b2 = p2.b;
-
-    Vector4 a = vector4_unit(vector4_scale(vector4_add(a1, a2), 0.5f));
-    if (vector4_is_bad(a) || vector4_is_zero(a)) a = a2;
-
-    Vector4 b = vector4_unit(vector4_scale(vector4_add(b1, b2), 0.5f));
-    if (vector4_is_bad(b) || vector4_is_zero(b)) b = b2;
-
-    return (Vector4Pair){ .a = a, .b = b };
-  }
-
-  return ok_1 ? p1 : p2;
+  return mif_float_is_bad(v.x) || mif_float_is_bad(v.y) || mif_float_is_bad(v.z) || mif_float_is_bad(v.w);
 }
