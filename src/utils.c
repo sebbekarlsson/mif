@@ -40,6 +40,10 @@ double mif_smoothstepd(double edge0, double edge1, double value) {
   return value * value * (3.0f - 2.0 * value);
 }
 
+float mif_saturate(float v) {
+  return mif_clamp(v, 0.0f, 1.0f);
+}
+
 float mif_fract(float v) {
   return mif_safe(v - floorf(v));
 }

@@ -75,6 +75,10 @@ Vector3 vector3_call(Vector3 a, MifVector3CallFunction func) {
   return VEC3(func(a.x), func(a.y), func(a.z));
 }
 
+Vector3 vector3_saturate(Vector3 a) {
+  return vector3_call(a, mif_saturate);
+}
+
 Vector3 vector3_mul_mat3(Vector3 v, mat3s m) {
   vec3s r = glms_mat3_mulv(m, VEC3_GLM(v));
   return VEC3_FROM_GLM(r);

@@ -28,6 +28,8 @@ float mif_smoothstep(float edge0, float edge1, float value);
 
 double mif_smoothstepd(double edge0, double edge1, double value);
 
+float mif_saturate(float v);
+
 float mif_fract(float v);
 
 float mif_cos_n(float v);

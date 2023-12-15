@@ -52,6 +52,10 @@ Vector4 vector4_call(Vector4 a, MifVector4CallFunction func) {
   return VEC4(func(a.x), func(a.y), func(a.z), func(a.w));
 }
 
+Vector4 vector4_saturate(Vector4 a) {
+  return vector4_call(a, mif_saturate);
+}
+
 Vector4 vector4_mul_mat4(Vector4 v, mat4s m) {
   vec4s r = glms_mat4_mulv(m, VEC4_GLM(v));
   return VEC4_FROM_GLM(r);

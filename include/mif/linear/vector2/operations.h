@@ -15,6 +15,7 @@ Vector2 vector2_unit(Vector2 a);
 Vector2 vector2_inv(Vector2 a);
 Vector2 vector2_rescale(Vector2 v, float scale);
 Vector2 vector2_call(Vector2 a, MifVector2CallFunction func);
+Vector2 vector2_saturate(Vector2 a);
 
 Vector2 vector2_lerp_v2_v2_v2(Vector2 start, Vector2 end, Vector2 scale);
 Vector2 vector2_lerp_v2_v2_f(Vector2 start, Vector2 end, float scale);

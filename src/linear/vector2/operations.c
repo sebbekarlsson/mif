@@ -51,6 +51,10 @@ Vector2 vector2_call(Vector2 a, MifVector2CallFunction func) {
   return VEC2(func(a.x), func(a.y));
 }
 
+Vector2 vector2_saturate(Vector2 a) {
+  return vector2_call(a, mif_saturate);
+}
+
 ///////////////////////////////////////////////////////////////////
 
 Vector2 vector2_lerp_v2_v2_v2(Vector2 start, Vector2 end, Vector2 scale) {
