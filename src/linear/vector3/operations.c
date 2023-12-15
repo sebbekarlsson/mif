@@ -63,6 +63,10 @@ Vector3 vector3_unit(Vector3 a) {
   return VEC3(a.x / mag, a.y / mag, a.z / mag);
 }
 
+Vector3 vector3_relax(Vector3 a, float relax) {
+  return vector3_scale(a, 1.0f / (1.0f + fabsf(relax)));
+}
+
 Vector3 vector3_compute_normal(Vector3 v1, Vector3 v2, Vector3 v3) {
   Vector3 e1 = vector3_sub(v2, v1);
   Vector3 e2 = vector3_sub(v3, v1);
@@ -118,6 +122,10 @@ Vector3 vector3_lerp_v3_v3_f(Vector3 start, Vector3 end, float scale) {
   float y = mif_lerp(start.y, end.y, scale);
   float z = mif_lerp(start.z, end.z, scale);
   return VEC3(x, y, z);
+}
+
+Vector3 vector3_clamp_mag(Vector3 a, float min, float max) {
+  return vector3_scale(vector3_unit(a), mif_clamp(vector3_mag(a), min, max));
 }
 
 Vector3 vector3_clamp_v3_v3_v3(Vector3 a, Vector3 min, Vector3 max) {
