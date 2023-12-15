@@ -33,6 +33,7 @@ Vector3 vector3_lerp_v3_v3_f(Vector3 start, Vector3 end, float scale);
 
 #define vector3_lerp(start, end, scale) _Generic((scale), \
     float: vector3_lerp_v3_v3_f, \
+    double: vector3_lerp_v3_v3_f, \
     Vector3: vector3_lerp_v3_v3_v3 \
 )(start, end, scale)
 
@@ -40,6 +41,7 @@ Vector3 vector3_clamp_v3_v3_v3(Vector3 a, Vector3 min, Vector3 max);
 Vector3 vector3_clamp_v3_f_f(Vector3 a, float min, float max);
 
 #define vector3_clamp(a, min, max) _Generic((max), \
+    double: vector3_clamp_v3_f_f, \
     float: vector3_clamp_v3_f_f, \
     Vector3: vector3_clamp_v3_v3_v3 \
 )(a, min, max)

@@ -21,6 +21,7 @@ Vector2 vector2_lerp_v2_v2_v2(Vector2 start, Vector2 end, Vector2 scale);
 Vector2 vector2_lerp_v2_v2_f(Vector2 start, Vector2 end, float scale);
 
 #define vector2_lerp(start, end, scale) _Generic((scale), \
+    double: vector2_lerp_v2_v2_f, \
     float: vector2_lerp_v2_v2_f, \
     Vector2: vector2_lerp_v2_v2_v2 \
 )(start, end, scale)
@@ -29,6 +30,7 @@ Vector2 vector2_clamp_v2_v2_v2(Vector2 a, Vector2 min, Vector2 max);
 Vector2 vector2_clamp_v2_f_f(Vector2 a, float min, float max);
 
 #define vector2_clamp(a, min, max) _Generic((max), \
+    double: vector2_clamp_v2_f_f, \
     float: vector2_clamp_v2_f_f, \
     Vector2: vector2_clamp_v2_v2_v2 \
 )(a, min, max)

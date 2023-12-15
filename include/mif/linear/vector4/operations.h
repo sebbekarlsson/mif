@@ -25,6 +25,7 @@ Vector4 vector4_lerp_v4_v4_v4(Vector4 start, Vector4 end, Vector4 scale);
 Vector4 vector4_lerp_v4_v4_f(Vector4 start, Vector4 end, float scale);
 
 #define vector4_lerp(start, end, scale) _Generic((scale), \
+    double: vector4_lerp_v4_v4_f, \
     float: vector4_lerp_v4_v4_f, \
     Vector4: vector4_lerp_v4_v4_v4 \
 )(start, end, scale)
@@ -33,6 +34,7 @@ Vector4 vector4_clamp_v4_v4_v4(Vector4 a, Vector4 min, Vector4 max);
 Vector4 vector4_clamp_v4_f_f(Vector4 a, float min, float max);
 
 #define vector4_clamp(a, min, max) _Generic((max), \
+    double: vector4_clamp_v4_f_f, \
     float: vector4_clamp_v4_f_f, \
     Vector4: vector4_clamp_v4_v4_v4 \
 )(a, min, max)
