@@ -63,6 +63,13 @@ Vector3 vector3_unit(Vector3 a) {
   return VEC3(a.x / mag, a.y / mag, a.z / mag);
 }
 
+Vector3 vector3_compute_normal(Vector3 v1, Vector3 v2, Vector3 v3) {
+  Vector3 e1 = vector3_sub(v2, v1);
+  Vector3 e2 = vector3_sub(v3, v1);
+
+  return vector3_cross(e1, e2);
+}
+
 Vector3 vector3_inv(Vector3 a) {
   return VEC3(1.0f / a.x, 1.0f / a.y, 1.0f / a.z);
 }

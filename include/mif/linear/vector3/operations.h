@@ -19,6 +19,7 @@ Vector3 vector3_refract(Vector3 I, Vector3 N, float eta);
 Vector3 vector3_triple_product(Vector3 a, Vector3 b, Vector3 c);
 
 Vector3 vector3_unit(Vector3 a);
+Vector3 vector3_compute_normal(Vector3 v1, Vector3 v2, Vector3 v3);
 Vector3 vector3_inv(Vector3 a);
 Vector3 vector3_rescale(Vector3 v, float scale);
 Vector3 vector3_call(Vector3 a, MifVector3CallFunction func);
