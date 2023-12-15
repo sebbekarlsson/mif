@@ -1,0 +1,6 @@
+#ifndef MIF_LINEAR_VECTOR3_ALL_H
+#define MIF_LINEAR_VECTOR3_ALL_H
+#include <mif/linear/vector4/macros.h>
+#include <mif/linear/vector4/vector4.h>
+#include <mif/linear/vector4/operations.h>
+#endif

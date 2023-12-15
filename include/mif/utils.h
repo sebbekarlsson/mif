@@ -132,4 +132,6 @@ bool mif_float_is_bad(float v);
 
 bool mif_double_is_bad(double v);
 
+bool mif_float_is_zero(float v);
+
 #endif

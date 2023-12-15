@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.20)
 project(mif)
 
 file(GLOB PUBLIC_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/include/*.h)
-file(GLOB mif_files ${CMAKE_CURRENT_SOURCE_DIR}/src/*.c)
+file(GLOB_RECURSE mif_files ${CMAKE_CURRENT_SOURCE_DIR}/src/*.c)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON CACHE INTERNAL ${CMAKE_CURRENT_SOURCE_DIR}/)
 set(COMMANDS_FILE ${CMAKE_CURRENT_SOURCE_DIR}/compile_commands.json)

@@ -542,3 +542,7 @@ bool mif_float_is_bad(float v) {
 bool mif_double_is_bad(double v) {
   return isinf(v) || isnan(v) || (fabs(v) - 0.0001f) >= DBL_MAX; 
 }
+
+bool mif_float_is_zero(float v) {
+  return (fabsf(v) * 1000.0f) < MIF_TINY_FLOAT;
+}
