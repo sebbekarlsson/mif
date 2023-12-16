@@ -10,6 +10,13 @@ typedef struct {
 } Vector3;
 
 typedef struct {
+  uint32_t x;
+  uint32_t y;
+  uint32_t z;
+  uint32_t w;
+} Vector3U32;
+
+typedef struct {
   Vector3 a;
   Vector3 b;
 } Vector3Pair;

@@ -72,4 +72,6 @@ Vector3Pair vector3_tangents_slow(Vector3 n);
 Vector3Pair vector3_tangents_fast(Vector3 n);
 Vector3Pair vector3_tangents_approx(Vector3 n);
 
+Vector3U32 vector3U32_permute(Vector3U32 v);
+
 #endif

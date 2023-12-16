@@ -265,3 +265,16 @@ Vector3Pair vector3_tangents_approx(Vector3 n) {
 
   return ok_1 ? p1 : p2;
 }
+
+static inline uint32_t pm1(uint32_t x) {
+  uint32_t ix = ~x;
+  x ^= x << 17U;
+  x ^= x >> 13U;
+  x ^= x << 5U;
+  x = x + x * (402U + ix * 77U);
+  return x;
+}
+
+Vector3U32 vector3U32_permute(Vector3U32 v) {
+  return (Vector3U32){ .x = pm1(v.x), .y = pm1(v.y), .z = pm1(v.z) };
+}
