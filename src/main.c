@@ -14,15 +14,9 @@ Vector4 yo() {
 
 int main(int argc, char *argv[]) {
 
-  Vector4 x = VEC4(1, 2, 3, 4);
-  Vector3 a = VEC3(1, 2, 3);
-  Vector3 b = VEC3(-1, -2, 1);
+  Vector3 a = vector3_random(23.921f, VEC3(0.0f, -0.1f, 0.0f), VEC3(0.0f, 1.0f, 0.0f));
 
-  Vector3 c = vector3_lerp(a, b, VEC3(1, 0, 1));
-  Vector3Pair p = vector3_tangents_approx(vector3_unit(c));
-
-  VEC3_PRINT_PRECISE(p.a);
-  VEC3_PRINT_PRECISE(p.b);
+  VEC3_PRINT_PRECISE(a);
 
   return 0;
 }

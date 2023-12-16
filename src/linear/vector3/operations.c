@@ -142,6 +142,26 @@ Vector3 vector3_clamp_v3_f_f(Vector3 a, float min, float max) {
   return VEC3(x, y, z);
 }
 
+Vector3 vector3_random_f_v3_v3(float seed, Vector3 min, Vector3 max) {
+  uint32_t useed = mif_permute_uint32(mif_float_bits_to_uint(seed));
+  float x = mif_random_float_from_uint32(min.x, max.x, useed);
+  useed = mif_permute_uint32(mif_float_bits_to_uint(x * 3.0f + seed));
+  float y = mif_random_float_from_uint32(min.y, max.y, useed);
+  useed = mif_permute_uint32(mif_float_bits_to_uint(y * 3.0f + seed));
+  float z = mif_random_float_from_uint32(min.z, max.z, useed);
+  return VEC3(x, y, z);
+}
+
+Vector3 vector3_random_f_f_f(float seed, float min, float max) {
+  uint32_t useed = mif_permute_uint32(mif_float_bits_to_uint(seed));
+  float x = mif_random_float_from_uint32(min, max, useed);
+  useed = mif_permute_uint32(mif_float_bits_to_uint(x * 3.0f + seed));
+  float y = mif_random_float_from_uint32(min, max, useed);
+  useed = mif_permute_uint32(mif_float_bits_to_uint(y * 3.0f + seed));
+  float z = mif_random_float_from_uint32(min, max, useed);
+  return VEC3(x, y, z);
+}
+
 ///////////////////////////////////////////////////////////////////
 
 float vector3_mag(Vector3 a) {

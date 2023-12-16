@@ -50,6 +50,15 @@ Vector3 vector3_clamp_v3_f_f(Vector3 a, float min, float max);
     Vector3: vector3_clamp_v3_v3_v3 \
 )(a, min, max)
 
+Vector3 vector3_random_f_v3_v3(float seed, Vector3 min, Vector3 max);
+Vector3 vector3_random_f_f_f(float seed, float min, float max);
+
+#define vector3_random(seed, min, max) _Generic((max), \
+    double: vector3_random_f_f_f, \
+    float: vector3_random_f_f_f, \
+    Vector3: vector3_random_f_v3_v3 \
+)(seed, min, max)
+
 float vector3_mag(Vector3 a);
 float vector3_dot(Vector3 a, Vector3 b);
 float vector3_distance(Vector3 a, Vector3 b);
