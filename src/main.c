@@ -15,7 +15,7 @@ Vector4 yo() {
 int main(int argc, char *argv[]) {
 
 
-  Vector3 r = vector3_random(VEC3(3.3f, 11.381f, 0.3812f), 0.0f, 1.0f);
+  Vector3 r = vector3_random(0.2, 0.0f, 1.0f);
 
   VEC3_PRINT_PRECISE(r);
 

@@ -78,6 +78,7 @@ Vector3 vector3_random_v3_v3_v3(Vector3 seed, Vector3 min, Vector3 max);
 
 #define vector3_random(seed, min, max)                                         \
   _Generic((seed), float                                                       \
+           : _vector3_random_f(seed, min, max), double                         \
            : _vector3_random_f(seed, min, max), Vector3                        \
            : _vector3_random_v3(seed, min, max))(seed, min, max)
 
