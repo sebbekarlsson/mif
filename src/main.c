@@ -14,12 +14,10 @@ Vector4 yo() {
 
 int main(int argc, char *argv[]) {
 
-  Vector3U32 stuff = (Vector3U32){ 381U, 77U, 931U, 116U };
 
+  Vector3 r = vector3_random(VEC3(3.3f, 11.381f, 0.3812f), 0.0f, 1.0f);
 
-  stuff = vector3U32_permute(stuff);
-
-  printf("%d, %d, %d\n", stuff.x, stuff.y, stuff.z);
+  VEC3_PRINT_PRECISE(r);
 
   return 0;
 }

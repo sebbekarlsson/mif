@@ -162,6 +162,30 @@ Vector3 vector3_random_f_f_f(float seed, float min, float max) {
   return VEC3(x, y, z);
 }
 
+Vector3 vector3_random_v3_f_f(Vector3 seed, float min, float max) {
+  Vector3U32 s = (Vector3U32){
+    .x = mif_float_bits_to_uint(seed.x),
+    .y = mif_float_bits_to_uint(seed.y),
+    .z = mif_float_bits_to_uint(seed.z) };
+  s = vector3U32_permute(s);
+  float x = mif_random_float_from_uint32(min, max, s.x);
+  float y = mif_random_float_from_uint32(min, max, s.y);
+  float z = mif_random_float_from_uint32(min, max, s.z);
+  return VEC3(x, y, z);
+}
+
+Vector3 vector3_random_v3_v3_v3(Vector3 seed, Vector3 min, Vector3 max) {
+  Vector3U32 s = (Vector3U32){
+    .x = mif_float_bits_to_uint(seed.x),
+    .y = mif_float_bits_to_uint(seed.y),
+    .z = mif_float_bits_to_uint(seed.z) };
+  s = vector3U32_permute(s);
+  float x = mif_random_float_from_uint32(min.x, max.x, s.x);
+  float y = mif_random_float_from_uint32(min.y, max.y, s.y);
+  float z = mif_random_float_from_uint32(min.z, max.z, s.z);
+  return VEC3(x, y, z);
+}
+
 ///////////////////////////////////////////////////////////////////
 
 float vector3_mag(Vector3 a) {

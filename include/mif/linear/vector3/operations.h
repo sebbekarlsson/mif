@@ -1,8 +1,8 @@
 #ifndef MIF_LINEAR_VECTOR3_OPERATIONS_H
 #define MIF_LINEAR_VECTOR3_OPERATIONS_H
-#include <mif/linear/vector3/vector3.h>
-#include <cglm/struct/mat4.h>
 #include <cglm/struct/mat3.h>
+#include <cglm/struct/mat4.h>
+#include <mif/linear/vector3/vector3.h>
 #include <stdbool.h>
 
 typedef float (*MifVector3CallFunction)(float x);
@@ -33,31 +33,53 @@ Vector3 vector3_mul_mat4_raw(Vector3 v, float w, mat4 m);
 Vector3 vector3_lerp_v3_v3_v3(Vector3 start, Vector3 end, Vector3 scale);
 Vector3 vector3_lerp_v3_v3_f(Vector3 start, Vector3 end, float scale);
 
-#define vector3_lerp(start, end, scale) _Generic((scale), \
-    float: vector3_lerp_v3_v3_f, \
-    double: vector3_lerp_v3_v3_f, \
-    Vector3: vector3_lerp_v3_v3_v3 \
-)(start, end, scale)
-
+#define vector3_lerp(start, end, scale)                                        \
+  _Generic((scale), float                                                      \
+           : vector3_lerp_v3_v3_f, double                                      \
+           : vector3_lerp_v3_v3_f, Vector3                                     \
+           : vector3_lerp_v3_v3_v3)(start, end, scale)
 
 Vector3 vector3_clamp_mag(Vector3 a, float min, float max);
 Vector3 vector3_clamp_v3_v3_v3(Vector3 a, Vector3 min, Vector3 max);
 Vector3 vector3_clamp_v3_f_f(Vector3 a, float min, float max);
 
-#define vector3_clamp(a, min, max) _Generic((max), \
-    double: vector3_clamp_v3_f_f, \
-    float: vector3_clamp_v3_f_f, \
-    Vector3: vector3_clamp_v3_v3_v3 \
-)(a, min, max)
+#define vector3_clamp(a, min, max)                                             \
+  _Generic((max), double                                                       \
+           : vector3_clamp_v3_f_f, float                                       \
+           : vector3_clamp_v3_f_f, Vector3                                     \
+           : vector3_clamp_v3_v3_v3)(a, min, max)
 
 Vector3 vector3_random_f_v3_v3(float seed, Vector3 min, Vector3 max);
 Vector3 vector3_random_f_f_f(float seed, float min, float max);
+Vector3 vector3_random_v3_f_f(Vector3 seed, float min, float max);
+Vector3 vector3_random_v3_v3_v3(Vector3 seed, Vector3 min, Vector3 max);
 
-#define vector3_random(seed, min, max) _Generic((max), \
-    double: vector3_random_f_f_f, \
-    float: vector3_random_f_f_f, \
-    Vector3: vector3_random_f_v3_v3 \
-)(seed, min, max)
+#define _vector3_random_seed_is_float                                          \
+  double : vector3_random_f_f_f,                                               \
+           float : vector3_random_f_f_f,                                       \
+                   Vector3 : vector3_random_f_v3_v3
+
+#define _vector3_random_seed_is_v3                                             \
+  double : vector3_random_v3_f_f,                                              \
+           float : vector3_random_v3_f_f,                                      \
+                   Vector3 : vector3_random_v3_v3_v3
+
+#define _vector3_random_f(seed, min, max)                                      \
+  _Generic((max), double                                                       \
+           : vector3_random_f_f_f, float                                       \
+           : vector3_random_f_f_f, Vector3                                     \
+           : vector3_random_f_v3_v3)
+
+#define _vector3_random_v3(seed, min, max)                                     \
+  _Generic((max), double                                                       \
+           : vector3_random_v3_f_f, float                                      \
+           : vector3_random_v3_f_f, Vector3                                    \
+           : vector3_random_v3_v3_v3)
+
+#define vector3_random(seed, min, max)                                         \
+  _Generic((seed), float                                                       \
+           : _vector3_random_f(seed, min, max), Vector3                        \
+           : _vector3_random_v3(seed, min, max))(seed, min, max)
 
 float vector3_mag(Vector3 a);
 float vector3_dot(Vector3 a, Vector3 b);
