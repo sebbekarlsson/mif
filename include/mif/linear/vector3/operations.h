@@ -86,6 +86,7 @@ Vector3 vector3_random_v3_v3_v3(Vector3 seed, Vector3 min, Vector3 max);
 float vector3_mag(Vector3 a);
 float vector3_dot(Vector3 a, Vector3 b);
 float vector3_distance(Vector3 a, Vector3 b);
+float vector3_get(Vector3 v, int i);
 float vector3_triple_product_scalar(Vector3 a, Vector3 b, Vector3 c);
 float vector3_get_component(Vector3 a, uint8_t idx);
 

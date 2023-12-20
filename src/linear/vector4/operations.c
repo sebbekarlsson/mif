@@ -131,6 +131,17 @@ float vector4_distance(Vector4 a, Vector4 b) {
   return sqrtf(powf(a.x - b.x, 2.0f) + powf(a.y - b.y, 2.0f) + powf(a.z - b.z, 2.0f) + powf(a.w - b.w, 2.0f));
 }
 
+float vector4_get(Vector4 v, int i) {
+  switch (i) {
+    case 0: return v.x; break;
+    case 1: return v.y; break;
+    case 2: return v.z; break;
+    case 3: return v.w; break;
+    default: return 0; break;
+  }
+  return 0;
+}
+
 ///////////////////////////////////////////////////////////////////
 
 bool vector4_is_zero(Vector4 v) {

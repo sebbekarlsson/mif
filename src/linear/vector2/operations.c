@@ -107,6 +107,15 @@ float vector2_distance(Vector2 a, Vector2 b) {
   return (hypotf(b.x - a.x, b.y - a.y));
 }
 
+float vector2_get(Vector2 v, int i) {
+  switch (i) {
+    case 0: return v.x; break;
+    case 1: return v.y; break;
+    default: return 0; break;
+  }
+  return 0;
+}
+
 ///////////////////////////////////////////////////////////////////
 
 bool vector2_is_zero(Vector2 v) {

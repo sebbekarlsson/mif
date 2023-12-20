@@ -43,6 +43,7 @@ Vector4 vector4_clamp_v4_f_f(Vector4 a, float min, float max);
 float vector4_mag(Vector4 a);
 float vector4_dot(Vector4 a, Vector4 b);
 float vector4_distance(Vector4 a, Vector4 b);
+float vector4_get(Vector4 v, int i);
 
 bool vector4_is_zero(Vector4 v);
 bool vector4_is_bad(Vector4 v);

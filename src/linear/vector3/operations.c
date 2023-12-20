@@ -214,6 +214,16 @@ float vector3_distance(Vector3 a, Vector3 b) {
   return sqrtf(powf(a.x - b.x, 2.0f) + powf(a.y - b.y, 2.0f) + powf(a.z - b.z, 2.0f));
 }
 
+float vector3_get(Vector3 v, int i) {
+  switch (i) {
+    case 0: return v.x; break;
+    case 1: return v.y; break;
+    case 2: return v.z; break;
+    default: return 0; break;
+  }
+  return 0;
+}
+
 float vector3_triple_product_scalar(Vector3 a, Vector3 b, Vector3 c) {
   return vector3_dot(a, vector3_cross(b, c));
 }

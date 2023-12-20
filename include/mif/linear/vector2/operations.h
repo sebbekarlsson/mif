@@ -39,6 +39,7 @@ Vector2 vector2_clamp_v2_f_f(Vector2 a, float min, float max);
 float vector2_mag(Vector2 a);
 float vector2_dot(Vector2 a, Vector2 b);
 float vector2_distance(Vector2 a, Vector2 b);
+float vector2_get(Vector2 v, int i);
 
 bool vector2_is_zero(Vector2 v);
 bool vector2_is_bad(Vector2 v);
