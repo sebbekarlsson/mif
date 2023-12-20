@@ -25,6 +25,7 @@ Vector3 vector3_inv(Vector3 a);
 Vector3 vector3_rescale(Vector3 v, float scale);
 Vector3 vector3_call(Vector3 a, MifVector3CallFunction func);
 Vector3 vector3_saturate(Vector3 a);
+Vector3 vector3_set(Vector3 v, int i, float value);
 
 Vector3 vector3_mul_mat3(Vector3 v, mat3s m);
 Vector3 vector3_mul_mat4(Vector3 v, float w, mat4s m);

@@ -17,6 +17,7 @@ Vector4 vector4_inv(Vector4 a);
 Vector4 vector4_rescale(Vector4 v, float scale);
 Vector4 vector4_call(Vector4 a, MifVector4CallFunction func);
 Vector4 vector4_saturate(Vector4 a);
+Vector4 vector4_set(Vector4 v, int i, float value);
 
 Vector4 vector4_mul_mat4(Vector4 v, mat4s m);
 Vector4 vector4_mul_mat4_raw(Vector4 v, mat4 m);

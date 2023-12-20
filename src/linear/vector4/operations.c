@@ -56,6 +56,17 @@ Vector4 vector4_saturate(Vector4 a) {
   return vector4_call(a, mif_saturate);
 }
 
+Vector4 vector4_set(Vector4 v, int i, float value) {
+  switch (i) {
+    case 0: v.x = value; break;
+    case 1: v.y = value; break;
+    case 2: v.z = value; break;
+    case 3: v.w = value; break;
+    default: return v; break;
+  }
+  return v;
+}
+
 Vector4 vector4_mul_mat4(Vector4 v, mat4s m) {
   vec4s r = glms_mat4_mulv(m, VEC4_GLM(v));
   return VEC4_FROM_GLM(r);

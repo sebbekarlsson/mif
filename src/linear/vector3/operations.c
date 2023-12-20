@@ -90,6 +90,16 @@ Vector3 vector3_saturate(Vector3 a) {
   return vector3_call(a, mif_saturate);
 }
 
+Vector3 vector3_set(Vector3 v, int i, float value) {
+  switch (i) {
+    case 0: v.x = value; break;
+    case 1: v.y = value; break;
+    case 2: v.z = value; break;
+    default: return v; break;
+  }
+  return v;
+}
+
 Vector3 vector3_mul_mat3(Vector3 v, mat3s m) {
   vec3s r = glms_mat3_mulv(m, VEC3_GLM(v));
   return VEC3_FROM_GLM(r);

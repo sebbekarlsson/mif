@@ -15,9 +15,11 @@ Vector4 yo() {
 int main(int argc, char *argv[]) {
 
 
-  Vector3 r = vector3_random(0.2, 0.0f, 1.0f);
+  Vector4 v = VEC4(0, 0, 0, 0);
 
-  VEC3_PRINT_PRECISE(r);
+  v = vector4_set(v, 3, 1.0f);
+
+  VEC4_PRINT_PRECISE(v);
 
   return 0;
 }

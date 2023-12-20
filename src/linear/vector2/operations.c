@@ -55,6 +55,15 @@ Vector2 vector2_saturate(Vector2 a) {
   return vector2_call(a, mif_saturate);
 }
 
+Vector2 vector2_set(Vector2 v, int i, float value) {
+  switch (i) {
+    case 0: v.x = value; break;
+    case 1: v.y = value; break;
+    default: return v; break;
+  }
+  return v;
+}
+
 ///////////////////////////////////////////////////////////////////
 
 Vector2 vector2_lerp_v2_v2_v2(Vector2 start, Vector2 end, Vector2 scale) {
