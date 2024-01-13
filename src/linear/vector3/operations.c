@@ -3,6 +3,7 @@
 #include <mif/linear/vector3/macros.h>
 #include <mif/utils.h>
 #include <mif/macros.h>
+#include <cglm/struct/quat.h>
 #include <math.h>
 
 Vector3 vector3_add(Vector3 a, Vector3 b) {
@@ -115,6 +116,11 @@ Vector3 vector3_mul_mat3(Vector3 v, mat3s m) {
 Vector3 vector3_mul_mat4(Vector3 v, float w, mat4s m) {
   vec3s r = glms_mat4_mulv3(m, VEC3_GLM(v), w);
   return VEC3_FROM_GLM(r);
+}
+
+Vector3 vector3_mul_quat(Vector3 v, float w, versors q) {
+  mat4s m = glms_quat_mat4(q);
+  return vector3_mul_mat4(v, w, m);
 }
 
 Vector3 vector3_mul_mat4_raw(Vector3 v, float w, mat4 m) {
