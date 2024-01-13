@@ -102,6 +102,26 @@ void mif_decant(int c, int* x, int* y) {
   *x = w - *y;
 }
 
+uint32_t mif_cantor_uint8_uint32(uint8_t k1, uint8_t k2) {
+  return ((k1 + k2) * (k1 + k2 + 1)) / 2 + k2;
+}
+
+void mif_decant_uint32_uint8(uint32_t c, uint8_t* x, uint8_t* y) {
+  uint32_t w = (uint32_t)floorf((sqrtf(c * 8 + 1) - 1) / 2);
+  *y = c - (w * (w + 1)) / 2;
+  *x = w - *y;
+}
+
+uint8_t mif_cantor_uint8_uint8(uint8_t k1, uint8_t k2) {
+  return ((k1 + k2) * (k1 + k2 + 1)) / 2 + k2;
+}
+
+void mif_decant_uint8_uint8(uint8_t c, uint8_t* x, uint8_t* y) {
+  uint8_t w = (uint8_t)floorf((sqrtf(c * 8 + 1) - 1) / 2);
+  *y = c - (w * (w + 1)) / 2;
+  *x = w - *y;
+}
+
 bool mif_isodd(int v) {
   return v % 2 != 0;
 }

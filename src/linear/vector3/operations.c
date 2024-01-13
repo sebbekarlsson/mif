@@ -53,6 +53,13 @@ Vector3 vector3_triple_product(Vector3 a, Vector3 b, Vector3 c) {
   return vector3_cross(a, vector3_cross(b, c));
 }
 
+Vector3 vector3_rotate(Vector3 v, float radians, Vector3 axis) {
+  vec3s v_ = { .x = v.x, .y = v.y, .z = v.z };
+  vec3s a_ = { .x = axis.x, .y = axis.y, .z = axis.z };
+  vec3s r = glms_vec3_rotate(v_, radians, a_);
+  return VEC3(r.x, r.y, r.z);
+}
+
 Vector3 vector3_unit(Vector3 a) {
   float mag = vector3_mag(a);
 

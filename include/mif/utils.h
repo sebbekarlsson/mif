@@ -52,6 +52,14 @@ int mif_cantor(int x, int y);
 
 void mif_decant(int c, int* x, int* y);
 
+uint32_t mif_cantor_uint8_uint32(uint8_t k1, uint8_t k2);
+
+void mif_decant_uint32_uint8(uint32_t c, uint8_t* x, uint8_t* y);
+
+uint8_t mif_cantor_uint8_uint8(uint8_t k1, uint8_t k2);
+
+void mif_decant_uint8_uint8(uint8_t c, uint8_t* x, uint8_t* y);
+
 bool mif_isodd(int v);
 
 int mif_collatz(int v);

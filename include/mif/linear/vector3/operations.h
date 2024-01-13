@@ -17,6 +17,7 @@ Vector3 vector3_cross(Vector3 a, Vector3 b);
 Vector3 vector3_reflect(Vector3 I, Vector3 N);
 Vector3 vector3_refract(Vector3 I, Vector3 N, float eta);
 Vector3 vector3_triple_product(Vector3 a, Vector3 b, Vector3 c);
+Vector3 vector3_rotate(Vector3 v, float radians, Vector3 axis);
 
 Vector3 vector3_unit(Vector3 a);
 Vector3 vector3_relax(Vector3 a, float relax);
