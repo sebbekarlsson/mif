@@ -257,6 +257,10 @@ bool vector3_is_bad(Vector3 v) {
   return mif_float_is_bad(v.x) || mif_float_is_bad(v.y) || mif_float_is_bad(v.z);
 }
 
+bool vector3_is_uniform(Vector3 v, float tolerance) {
+  return mif_cmpf(v.x, v.y, tolerance) && mif_cmpf(v.y, v.z, tolerance) && mif_cmpf(v.z, v.x, tolerance);
+}
+
 ///////////////////////////////////////////////////////////////////
 
 Vector3Pair vector3_tangents_slow(Vector3 n) {

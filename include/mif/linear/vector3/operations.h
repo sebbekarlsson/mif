@@ -94,6 +94,7 @@ float vector3_get_component(Vector3 a, uint8_t idx);
 
 bool vector3_is_zero(Vector3 v);
 bool vector3_is_bad(Vector3 v);
+bool vector3_is_uniform(Vector3 v, float tolerance);
 
 Vector3Pair vector3_tangents_slow(Vector3 n);
 Vector3Pair vector3_tangents_fast(Vector3 n);
