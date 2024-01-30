@@ -119,6 +119,7 @@ int mif_lev_icase(const char *a, const char *b);
 
 float mif_strcmp(const char *a, const char *b, bool case_insensitive);
 
+bool mif_cmpf(float a, float b, float tolerance);
 
 uint32_t mif_float_bits_to_uint(float f);
 

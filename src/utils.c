@@ -219,6 +219,10 @@ void mif_smooth_range_inv(float *out, int len) {
   }
 }
 
+bool mif_cmpf(float a, float b, float tolerance) {
+  return fabsf(a - b) < tolerance;
+}
+
 int mif_crush(int seed) {
   seed ^= seed << 13;
   seed ^= seed >> 17;
